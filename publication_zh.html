@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>NSAG - HDU</title>
+  <link rel="icon" type="image/jpeg" href="fig/logo.jpg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    html, body, h1, h2, h3, h4, h5 {
+      font-family: "Lato", sans-serif;
+    }
+
+    /* Modern Publications Page Styles */
+    .publications-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .page-title {
+      font-size: 42px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    .page-subtitle {
+      font-size: 20px;
+      color: #7f8c8d;
+      font-weight: 400;
+    }
+
+    /* Search and Filter Section */
+    .search-filter-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .search-container {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 300px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 45px 12px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #95a5a6;
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 10px 18px;
+      border: 2px solid #dee2e6;
+      background: white;
+      border-radius: 20px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #6c757d;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: #3498db;
+      border-color: #3498db;
+      color: white;
+    }
+
+    .stats-info {
+      text-align: center;
+      color: #6c757d;
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 15px;
+    }
+
+    /* Publications List */
+    .publications-list {
+      margin-bottom: 40px;
+    }
+
+    .year-section {
+      margin-bottom: 50px;
+    }
+
+    .year-header {
+      font-size: 32px;
+      font-weight: 700;
+      color: #34495e;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #3498db;
+      position: relative;
+    }
+
+    .year-header::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 80px;
+      height: 3px;
+      background: #e74c3c;
+    }
+
+    .year-count {
+      font-size: 18px;
+      color: #95a5a6;
+      font-weight: 500;
+      margin-left: 15px;
+    }
+
+    .publication-item {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      border-left: 4px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .publication-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 25px rgba(0,0,0,0.12);
+    }
+
+    .publication-item.journal {
+      border-left-color: #27ae60;
+    }
+
+    .publication-item.conference {
+      border-left-color: #3498db;
+    }
+
+    .publication-item.book {
+      border-left-color: #f39c12;
+    }
+
+    .pub-type-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pub-type-badge.journal {
+      background: #d5f4e6;
+      color: #27ae60;
+    }
+
+    .pub-type-badge.conference {
+      background: #d6eaf8;
+      color: #3498db;
+    }
+
+    .pub-type-badge.book {
+      background: #fdeaa7;
+      color: #f39c12;
+    }
+
+    .pub-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 12px;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .pub-title:hover {
+      color: #3498db;
+    }
+
+    .pub-authors {
+      font-size: 16px;
+      color: #7f8c8d;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .pub-venue {
+      font-size: 16px;
+      color: #8e44ad;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .pub-meta {
+      display: flex;
+      gap: 15px;
+      font-size: 14px;
+      color: #95a5a6;
+      font-weight: 500;
+      flex-wrap: wrap;
+    }
+
+    .pub-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .search-container {
+        flex-direction: column;
+      }
+
+      .search-box {
+        min-width: auto;
+      }
+
+      .filter-buttons {
+        justify-content: center;
+      }
+
+      .publication-item {
+        padding: 20px;
+      }
+
+      .pub-type-badge {
+        position: static;
+        margin-bottom: 10px;
+        display: inline-block;
+      }
+    }
+
+    .w3-padding-section {
+      padding-top: 32px;
+      padding-bottom: 32px;
+    }
+
+    .navbar-bg {
+      background-color: #e6f2ff !important;
+    }
+
+    /* 页脚背景样式 */
+    .w3-footer-custom {
+      background-color: #f5f5f5 !important; /* 浅灰色背景 */
+      padding-top: 8px !important;         /* 上内边距 */
+      padding-bottom: 8px !important;      /* 下内边距 */
+    }
+
+    /* 页脚内容容器 */
+    .w3-footer-info {
+      max-width: 1100px;                  /* 最大宽度 */
+      margin: 0 auto;                     /* 水平居中 */
+      text-align: left;                   /* 文本左对齐 */
+      padding: 4px 8px !important;        /* 内边距（上下4px，左右8px） */
+    }
+
+    /* 页脚段落文本 */
+    .w3-footer-info p {
+      margin: 1px 0 !important;           /* 段落间距（上下1px） */
+      font-size: 14px;                    /* 字体大小 */
+      color: #444;                        /* 文字颜色 */
+    }
+
+    /* 页脚标题 */
+    .w3-footer-info h4 {
+      font-size: 16px;                    /* 标题字体大小 */
+      font-weight: bold;                  /* 加粗 */
+    }
+
+    /* 返回顶部按钮 */
+    .w3-footer-button {
+      margin: 4px !important;             /* 按钮外边距 */
+    }
+
+    /* 版权信息 */
+    .w3-footer-copyright {
+      margin: 4px 0 !important;           /* 上下边距 */
+    }
+
+    .w3-content {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .pub-container {
+      margin-top: 20px;
+    }
+
+
+
+    /* Navbar styles */
+    .navbar-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .w3-bar-item.w3-button:hover {
+      background-color: rgba(241, 241, 241, 0.8) !important;
+    }
+
+    #mobileNav {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* Responsive navbar control */
+    @media screen and (max-width: 900px) {
+      .navbar-desktop-full {
+        display: none !important;
+      }
+      .navbar-desktop-menu {
+        display: none !important;
+      }
+      .navbar-mobile {
+        display: block !important;
+      }
+      .navbar-mobile-menu {
+        display: flex !important;
+      }
+    }
+
+    @media screen and (min-width: 901px) {
+      .navbar-desktop-full {
+        display: flex !important;
+      }
+      .navbar-desktop-menu {
+        display: flex !important;
+      }
+      .navbar-mobile {
+        display: none !important;
+      }
+      .navbar-mobile-menu {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="navbar-container w3-large" style="display: flex; align-items: center; justify-content: space-between; height: auto; padding: 12px 0; width: 100%; max-width: none; position: relative;">
+
+    <!-- Left Side -->
+    <div style="display: flex; align-items: center; padding-left: 4px; white-space: nowrap;">
+      <!-- Desktop Full Layout -->
+      <div class="navbar-desktop-full" style="display: flex; align-items: center;">
+        <img src="fig/hdu_logo.png" alt="HDU" style="height:45px; margin-right:12px; margin-left:4px;">
+        <img src="fig/logo.jpg" alt="Lab Logo" style="height:45px; margin-right:15px;">
+        <div style="line-height:1.3; white-space: nowrap;">
+          <div style="font-size:16px; font-weight:500; color:#333;">网络科学与认知智能实验室</div>
+          <div style="font-size:12px; color:#666;">Network Science & AI Group</div>
+        </div>
+      </div>
+      <!-- Mobile Layout -->
+      <div class="navbar-mobile" style="display: none;">
+        <div style="font-size:20px; font-weight:bold; color:#333; margin-left:4px;">NSAG-Lab</div>
+      </div>
+    </div>
+
+    <!-- Right Side -->
+    <div style="padding-right: 4px; white-space: nowrap;">
+      <!-- Desktop Layout -->
+      <div class="navbar-desktop-menu" style="display: flex; align-items: center;">
+        <a href="index_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px;">首页</a>
+        <a href="members_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px;">成员</a>
+        <a href="publication_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px;">发表</a>
+        <a href="publication.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px; margin-right:4px;">EN</a>
+      </div>
+      <!-- Mobile Layout -->
+      <div class="navbar-mobile-menu" style="display: none; align-items: center;">
+        <a href="publication.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 12px; margin-right:4px;">EN</a>
+        <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-light-grey" onclick="toggleMobileMenu()" style="padding:8px 12px; margin-right:4px;">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Dropdown -->
+  <div id="mobileNav" class="w3-bar-block w3-hide" style="margin-top:0;">
+    <a href="index_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:12px 16px;">首页</a>
+    <a href="members_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:12px 16px;">成员</a>
+    <a href="publication_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:12px 16px;">发表</a>
+  </div>
+</div>
+
+<script>
+  function toggleMobileMenu() {
+    var x = document.getElementById("mobileNav");
+    if (x.className.indexOf("w3-show") === -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+
+  // Publications search and filter functionality
+  let currentFilter = 'all';
+
+  function searchPublications() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const publications = document.querySelectorAll('.publication-item');
+    let visibleCount = 0;
+
+    publications.forEach(pub => {
+      const title = pub.querySelector('.pub-title').textContent.toLowerCase();
+      const authors = pub.querySelector('.pub-authors').textContent.toLowerCase();
+      const venue = pub.querySelector('.pub-venue').textContent.toLowerCase();
+
+      const matchesSearch = title.includes(searchTerm) ||
+                           authors.includes(searchTerm) ||
+                           venue.includes(searchTerm);
+      const matchesFilter = currentFilter === 'all' || pub.dataset.type === currentFilter;
+
+      if (matchesSearch && matchesFilter) {
+        pub.style.display = 'block';
+        visibleCount++;
+      } else {
+        pub.style.display = 'none';
+      }
+    });
+
+    updateYearSections();
+    updateStats(visibleCount);
+  }
+
+  function filterByType(type) {
+    currentFilter = type;
+
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    searchPublications();
+  }
+
+  function updateYearSections() {
+    const yearSections = document.querySelectorAll('.year-section');
+
+    yearSections.forEach(section => {
+      const visiblePubs = section.querySelectorAll('.publication-item[style*="block"], .publication-item:not([style*="none"])');
+      const actuallyVisible = Array.from(visiblePubs).filter(pub =>
+        pub.style.display !== 'none'
+      );
+
+      if (actuallyVisible.length > 0) {
+        section.style.display = 'block';
+        // Update year count
+        const yearCount = section.querySelector('.year-count');
+        if (yearCount) {
+          const totalInYear = section.querySelectorAll('.publication-item').length;
+          yearCount.textContent = `(${actuallyVisible.length}/${totalInYear} 篇)`;
+        }
+      } else {
+        section.style.display = 'none';
+      }
+    });
+  }
+
+  function updateStats(visibleCount) {
+    const statsInfo = document.getElementById('statsInfo');
+    const totalCount = document.querySelectorAll('.publication-item').length;
+
+    if (currentFilter === 'all' && document.getElementById('searchInput').value === '') {
+      statsInfo.textContent = `显示全部 ${totalCount} 篇论文`;
+    } else {
+      const filterText = {
+        'all': '全部',
+        'journal': '期刊论文',
+        'conference': '会议论文',
+        'book': '书籍章节'
+      };
+      statsInfo.textContent = `显示 ${visibleCount} 篇论文 (${filterText[currentFilter]})`;
+    }
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    updateStats(document.querySelectorAll('.publication-item').length);
+  });
+</script>
+
+
+
+<!-- Main Content -->
+<div class="publications-container" style="margin-top:100px; margin-bottom:80px;">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1 class="page-title">发表论文</h1>
+    <p class="page-subtitle">网络科学与认知智能实验室研究成果</p>
+  </div>
+
+  <!-- Search and Filter Section -->
+  <div class="search-filter-section">
+    <div class="search-container">
+      <div class="search-box">
+        <input type="text" class="search-input" id="searchInput" placeholder="搜索论文标题、作者或期刊..." onkeyup="searchPublications()">
+        <i class="fa fa-search search-icon"></i>
+      </div>
+    </div>
+
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="filterByType('all')">全部</button>
+      <button class="filter-btn" onclick="filterByType('journal')">期刊论文</button>
+      <button class="filter-btn" onclick="filterByType('conference')">会议论文</button>
+      <button class="filter-btn" onclick="filterByType('book')">书籍</button>
+    </div>
+
+    <div class="stats-info" id="statsInfo">
+      显示全部论文
+    </div>
+  </div>
+
+  <!-- Publications List -->
+  <div class="publications-list" id="publicationsList">
+
+    <!-- 2025 -->
+    <div class="year-section" data-year="2025">
+      <h2 class="year-header">2025 <span class="year-count">(3 篇)</span></h2>
+
+      <div class="publication-item journal" data-type="journal">
+        <div class="pub-type-badge journal">期刊</div>
+        <div class="pub-title">Graph contrastive learning with node-level accurate difference</div>
+        <div class="pub-authors">Pengfei Jiao, Kaiyan Yu, Qing Bao, Ying Jiang, Xuan Guo, Zhidong Zhao</div>
+        <div class="pub-venue">Fundamental Research</div>
+        <div class="pub-meta">
+          <div class="pub-meta-item">
+            <i class="fa fa-calendar"></i>
+            <span>2025</span>
+          </div>
+          <div class="pub-meta-item">
+            <i class="fa fa-book"></i>
+            <span>期刊论文</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="publication-item journal" data-type="journal">
+        <div class="pub-type-badge journal">期刊</div>
+        <div class="pub-title">Cascade Popularity Prediction: A Multi-View Learning Approach With Socialized Modeling</div>
+        <div class="pub-authors">Pengfei Jiao, Weijian Song, Yuling Wang, Wang Zhang, Hongqian Chen, Zhidong Zhao, Jian Wu</div>
+        <div class="pub-venue">IEEE Transactions on Network Science and Engineering</div>
+        <div class="pub-meta">
+          <div class="pub-meta-item">
+            <i class="fa fa-calendar"></i>
+            <span>2025</span>
+          </div>
+          <div class="pub-meta-item">
+            <i class="fa fa-book"></i>
+            <span>期刊论文</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="publication-item conference" data-type="conference">
+        <div class="pub-type-badge conference">会议</div>
+        <div class="pub-title">GCAD: Anomaly Detection in Multivariate Time Series from the Perspective of Granger Causality</div>
+        <div class="pub-authors">Zehao Liu, Mengzhou Gao, Pengfei Jiao</div>
+        <div class="pub-venue">Thirty-Ninth AAAI Conference on Artificial Intelligence (AAAI-25)</div>
+        <div class="pub-meta">
+          <div class="pub-meta-item">
+            <i class="fa fa-calendar"></i>
+            <span>2025</span>
+          </div>
+          <div class="pub-meta-item">
+            <i class="fa fa-users"></i>
+            <span>会议论文</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2024 -->
+    <div class="year-section" data-year="2024">
+      <h2 class="year-header">2024 <span class="year-count">(4 篇)</span></h2>
+
+      <div class="publication-item conference" data-type="conference">
+        <div class="pub-type-badge conference">会议</div>
+        <div class="pub-title">Informative Subgraphs Aware Masked Auto-Encoder in Dynamic Graphs</div>
+        <div class="pub-authors">Pengfei Jiao, Xinxun Zhang, Mengzhou Gao, Tianpeng Li, Zhidong Zhao</div>
+        <div class="pub-venue">2024 IEEE International Conference on Data Mining (ICDM)</div>
+        <div class="pub-meta">
+          <div class="pub-meta-item">
+            <i class="fa fa-calendar"></i>
+            <span>2024</span>
+          </div>
+          <div class="pub-meta-item">
+            <i class="fa fa-users"></i>
+            <span>会议论文</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="publication-item journal" data-type="journal">
+        <div class="pub-type-badge journal">期刊</div>
+        <div class="pub-title">Graph Contrastive Learning for Multi-Behavior Recommender System</div>
+        <div class="pub-authors">Zhidong Zhao, Jianing Liu, Nana Huang, Pengfei Jiao, Huaming Wu</div>
+        <div class="pub-venue">IEEE Transactions on Consumer Electronics</div>
+        <div class="pub-meta">
+          <div class="pub-meta-item">
+            <i class="fa fa-calendar"></i>
+            <span>2024</span>
+          </div>
+          <div class="pub-meta-item">
+            <i class="fa fa-book"></i>
+            <span>期刊论文</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="publication-item journal" data-type="journal">
+        <div class="pub-type-badge journal">期刊</div>
+        <div class="pub-title">Combine the Growth of Cascades and Impact of Users for Diffusion Prediction</div>
+        <div class="pub-authors">Pengfei Jiao, Peng Yan, Jilin Zhang, Biao Wang, Wang Zhang, Nailiang Zhao</div>
+        <div class="pub-venue">IEEE Transactions on Big Data</div>
+        <div class="pub-meta">
+          <div class="pub-meta-item">
+            <i class="fa fa-calendar"></i>
+            <span>2024</span>
+          </div>
+          <div class="pub-meta-item">
+            <i class="fa fa-book"></i>
+            <span>期刊论文</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="publication-item journal" data-type="journal">
+        <div class="pub-type-badge journal">期刊</div>
+        <div class="pub-title">Graph contrastive learning for source localization in social networks</div>
+        <div class="pub-authors">Qing Bao, Ying Jiang, Wang Zhang, Pengfei Jiao, Jing Su</div>
+        <div class="pub-venue">Information Sciences</div>
+        <div class="pub-meta">
+          <div class="pub-meta-item">
+            <i class="fa fa-calendar"></i>
+            <span>2024</span>
+          </div>
+          <div class="pub-meta-item">
+            <i class="fa fa-book"></i>
+            <span>期刊论文</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-footer-custom w3-center">
+  <div class="w3-footer-info">
+    <h4>网络科学与认知智能实验室</h4>
+    <p><i class="fa fa-map-marker w3-margin-right"></i> 中国浙江省杭州市钱塘区杭州电子科技大学</p>
+    <p><i class="fa fa-envelope w3-margin-right"></i> email@example.com</p>
+    <p><i class="fa fa-phone w3-margin-right"></i> +86 123-4567-8910</p>
+  </div>
+  <a href="#" class="w3-button w3-black w3-footer-button">
+    <i class="fa fa-arrow-up w3-margin-right"></i>返回顶部
+  </a>
+  <p class="w3-footer-copyright">© 2024 网络科学与认知智能实验室. 保留所有权利.</p>
+</footer>
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+</script>
+
+</body>
+</html>

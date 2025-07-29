@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NSAG - HDU</title>
+  <link rel="icon" type="image/jpeg" href="fig/logo.jpg" />
+  <link rel="stylesheet" href="w3.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <style>
+    html, body, h1, h2, h3, h4 {
+      font-family: "Lato", sans-serif;
+    }
+
+    .banner {
+      background-image: url("fig/bg.jpg");
+      background-size: cover;
+      background-position: center;
+      height: 450px;
+      position: relative;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .banner-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      color: white;
+      text-align: left;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    .banner-logo {
+      height: 120px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .banner-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .lab-title-large {
+      font-size: 36px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .lab-title-small {
+      font-size: 20px;
+      margin-top: 10px;
+      line-height: 1.2;
+    }
+
+    /* 移动端响应式设计 */
+    @media screen and (max-width: 768px) {
+      .banner-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .banner-logo {
+        height: 80px;
+      }
+
+      .banner-text {
+        text-align: center;
+      }
+
+      .lab-title-large {
+        font-size: 24px;
+        order: 2; /* 中文标题放在下面 */
+      }
+
+      .lab-title-small {
+        font-size: 18px;
+        margin-top: 0;
+        margin-bottom: 8px;
+        order: 1; /* NSAG放在上面 */
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .banner {
+        height: 350px;
+      }
+
+      .banner-logo {
+        height: 60px;
+      }
+
+      .lab-title-large {
+        font-size: 20px;
+      }
+
+      .lab-title-small {
+        font-size: 16px;
+      }
+    }
+
+
+
+    .navbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      transition: background-color 0.3s, color 0.3s;
+      /* 修复右侧抽屉没紧贴右边 */
+      box-sizing: border-box;
+      right: 0;
+      left: 0;
+    }
+
+    .navbar.transparent {
+      background-color: transparent;
+      color: white;
+    }
+
+    .navbar.solid {
+      background-color: white;
+      color: black;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar a {
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar.transparent a {
+      color: white;
+    }
+
+    .navbar.solid a {
+      color: black;
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-left img {
+      height: 40px;
+      margin-right: 10px;
+      transition: height 0.3s;
+    }
+
+    .navbar-text-group {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+      white-space: nowrap; /* 防止文字换行 */
+      overflow: hidden; /* 隐藏溢出内容 */
+    }
+
+    .navbar-title {
+      font-size: 20px;
+      font-weight: bold;
+      transition: font-size 0.3s, opacity 0.3s, visibility 0.3s;
+      white-space: nowrap; /* 防止标题换行 */
+    }
+
+    .navbar-subtitle {
+      font-size: 14px;
+      font-weight: normal;
+      margin-top: 2px;
+      transition: opacity 0.3s, visibility 0.3s;
+      white-space: nowrap; /* 防止副标题换行 */
+    }
+
+    .navbar.shrink .navbar-left img {
+      height: 30px;
+    }
+
+    .navbar.shrink .navbar-title {
+      font-size: 16px;
+    }
+
+    .hidden-title {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .show-title {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .navbar-logo {
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-right .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      margin-right: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      /* PC端取消hover背景和变色 */
+      transition: none !important;
+    }
+
+  @media screen and (max-width: 768px) {
+    .navbar {
+      padding: 10px 15px; /* 减少内边距 */
+    }
+
+    .navbar-left {
+      flex: 1;
+      min-width: 0; /* 允许收缩 */
+      overflow: hidden;
+    }
+
+    .navbar-left img {
+      height: 35px; /* 减小logo尺寸 */
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    .navbar-text-group {
+      min-width: 0; /* 允许收缩 */
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .navbar-title {
+      font-size: 16px; /* 减小字体 */
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .navbar-subtitle {
+      font-size: 12px; /* 减小字体 */
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .navbar-right .menu-toggle {
+      flex-shrink: 0; /* 防止按钮被压缩 */
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .nav-links.show {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start; /* 左对齐 */
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 240px;
+      height: 100vh;
+      background-color: #fefefe;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      padding: 60px 0 0 0; /* 顶部靠上，左边无 padding */
+      z-index: 999;
+      transition: transform 0.3s ease-in-out;
+      /* 确保紧贴右侧 */
+      margin: 0;
+      border: none;
+      box-sizing: border-box;
+    }
+
+    .nav-links a {
+      color: #333 !important;
+      cursor: pointer;
+      padding: 12px 20px; /* 添加左边内边距用于点击区域 */
+      width: 100%;
+      text-align: left;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* 缩放时显示变色效果 */
+    .nav-links a:hover {
+      background-color: #58dcee;
+      color: rgb(121, 162, 203) !important;
+    }
+
+    .navbar-right .menu-toggle {
+      display: inline-block;
+    }
+  }
+
+  /* PC端取消默认 hover 变色 */
+  @media screen and (min-width: 769px) {
+    .nav-links a:hover {
+      color: inherit !important;
+      background-color: transparent !important;
+      cursor: pointer;
+    }
+  }
+
+    .research-image {
+      width: 100%;
+      max-width: 300px;
+      height: 200px;
+      padding-top: 15px;
+      margin: 0 auto;
+      display: block;
+      object-fit: cover; /* 保持图片比例 */
+    }
+
+    /* 研究方向卡片居中样式 */
+    .research-card-container {
+      text-align: center;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    .research-card-container h4 {
+      text-align: center;
+      margin: 15px 0 10px 0;
+      font-size: 1.4em; /* 调大标题字体 */
+      font-weight: 600;
+    }
+
+    .research-card-container h6 {
+      text-align: center;
+      line-height: 1.6;
+      margin: 0 0 15px 0;
+      font-size: 1.1em; /* 调大描述文字 */
+      font-weight: 400;
+    }
+
+    /* 研究方向响应式设计 */
+    @media screen and (max-width: 768px) {
+      .research-image {
+        height: 150px; /* 移动端减小高度 */
+        max-width: 250px;
+      }
+
+      .research-card-container {
+        padding: 10px;
+      }
+
+      .research-card-container h4 {
+        font-size: 1.3em; /* 移动端也调大 */
+        margin: 10px 0 8px 0;
+      }
+
+      .research-card-container h6 {
+        font-size: 1.0em; /* 移动端也调大 */
+        line-height: 1.4;
+      }
+
+      /* 确保卡片在小屏幕上正确显示 */
+      .w3-third {
+        width: 100% !important;
+        margin-bottom: 20px;
+      }
+
+      .w3-row-padding .w3-third {
+        padding: 0 8px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .research-image {
+        height: 120px;
+        max-width: 200px;
+      }
+
+      .research-card-container {
+        padding: 8px;
+      }
+
+      .research-card-container h4 {
+        font-size: 1.2em; /* 小屏幕也适当调大 */
+      }
+
+      .research-card-container h6 {
+        font-size: 0.95em; /* 小屏幕也适当调大 */
+      }
+    }
+
+    .pmargin {
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+
+    .anchor {
+      display: block;
+      content: "";
+      position: relative;
+      top: -80px;
+      visibility: hidden;
+    }
+
+    .custom-large-bold {
+      font-size: 36px !important;
+      font-weight: 900 !important;
+      line-height: 1.3 !important; /* 增加行高防止重叠 */
+      word-spacing: 0.1em; /* 增加字符间距 */
+    }
+
+    /* 响应式标题优化 */
+    @media screen and (max-width: 768px) {
+      .custom-large-bold {
+        font-size: 28px !important;
+        line-height: 1.4 !important;
+        padding: 12px !important;
+        word-break: break-word; /* 允许换行 */
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .custom-large-bold {
+        font-size: 24px !important;
+        line-height: 1.5 !important;
+        padding: 10px !important;
+      }
+    }
+
+    /* 出版物容器 */
+    .publication-container {
+      margin: 0 30px;
+    }
+
+    /* 出版物条目 - 修改为垂直布局 */
+    .publication-item {
+      display: flex;
+      flex-direction: column; /* 改为垂直布局 */
+      margin-bottom: 0;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0; /* 浅灰色分隔线 */
+    }
+
+    /* 内容行 */
+    .publication-content {
+      display: flex;
+      align-items: flex-start; /* 顶部对齐 */
+    }
+
+    /* 出版物类型标签 */
+    .publication-type {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 10px;
+      border-radius: 12px;
+      color: white;
+      font-weight: normal;
+      margin-right: 15px;
+      font-size: 14px;
+      height: 22px;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+
+    /* 出版物链接 */
+    .publication-link {
+      color: #0066cc;
+      text-decoration: none;
+      font-size: inherit;
+      line-height: 1.6;
+      flex: 1;
+      word-break: break-word; /* 允许单词换行 */
+    }
+
+    /* 不同类型颜色 (保持不变) */
+    .publication-type-BOOK { background-color: #795548; }
+    .publication-type-IEEE-TPAMI { background-color: #3f51b5; }
+    .publication-type-Engineering { background-color: #009688; }
+    .publication-type-CVPR { background-color: #e91e63; }
+    .publication-type-ICLR { background-color: #ff5722; }
+
+    /* 响应式调整 */
+    @media (max-width: 600px) {
+      .publication-content {
+        flex-direction: column;
+        gap: 6px;
+      }
+      .publication-type {
+        margin-right: 0;
+        margin-bottom: 4px;
+      }
+    }
+
+        /* 页脚背景样式 */
+    .w3-footer-custom {
+      background-color: #f5f5f5 !important; /* 浅灰色背景 */
+      padding-top: 8px !important;         /* 上内边距 */
+      padding-bottom: 8px !important;      /* 下内边距 */
+    }
+
+    /* 页脚内容容器 */
+    .w3-footer-info {
+      max-width: 1100px;                  /* 最大宽度 */
+      margin: 0 auto;                     /* 水平居中 */
+      text-align: left;                   /* 文本左对齐 */
+      padding: 4px 8px !important;        /* 内边距（上下4px，左右8px） */
+    }
+
+    /* 页脚段落文本 */
+    .w3-footer-info p {
+      margin: 1px 0 !important;           /* 段落间距（上下1px） */
+      font-size: 14px;                    /* 字体大小 */
+      color: #444;                        /* 文字颜色 */
+    }
+
+    /* 页脚标题 */
+    .w3-footer-info h4 {
+      font-size: 16px;                    /* 标题字体大小 */
+      font-weight: bold;                  /* 加粗 */
+    }
+
+    /* 返回顶部按钮 */
+    .w3-footer-button {
+      margin: 4px !important;             /* 按钮外边距 */
+    }
+
+    /* 版权信息 */
+    .w3-footer-copyright {
+      margin: 4px 0 !important;           /* 上下边距 */
+    }
+
+    /* 更多论文按钮样式 */
+    .more-papers-container {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .more-papers-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(45deg, #3498db, #2980b9);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .more-papers-btn:hover {
+      background: linear-gradient(45deg, #2980b9, #1f5f8b);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+      color: white;
+      text-decoration: none;
+    }
+
+    .more-papers-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+  <!-- 🔽 导航栏 -->
+  <div id="navbar" class="navbar transparent">
+    <div class="navbar-left">
+      <!-- 始终显示的 logo -->
+      <img src="fig/hdu_logo.png" alt="HDU" class="navbar-logo" /> 
+      <!-- 滚动后显示的 logo --> 
+      <img src="fig/logo.jpg" alt="Second Logo" class="navbar-logo hidden-title" id="secondaryLogo" style="height: 35px;" />
+    
+      <!-- 滚动后显示的文字 -->
+      <div class="navbar-text-group">
+        <span class="navbar-title hidden-title" id="navTitle">Network Science & AI Group</span>
+        <span class="navbar-subtitle hidden-title" id="navSubTitle">Network Science</span>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <!-- ✅ 汉堡按钮 -->
+      <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fa fa-bars"></i>
+      </button>
+      <!-- ✅ 折叠菜单：右侧抽屉式 -->
+      <div class="nav-links" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="members.html">Members</a>
+        <a href="publication.html">Publications</a>
+      </div>
+      <!-- EN 始终显示 -->
+      <a href="index_zh.html">中文</a>
+    </div>
+  </div>
+
+  <!-- 🔽 顶部 Banner -->
+  <div class="banner">
+    <div class="banner-content">
+      <img src="fig/logo.jpg" class="banner-logo" alt="Lab Logo" />
+      <div class="banner-text">
+        <div class="lab-title-large">Network Science & AI Group</div>
+        <div class="lab-title-small">NSAG: Network Science and Cognitive Intelligence Lab</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔽 页面主体 -->
+  <div class="w3-content" style="max-width: 1100px; margin-top: 50px; margin-bottom: 80px">
+    <div class="w3-center w3-padding-32">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16 custom-large-bold">
+        Network Science & AI Group
+      </span>
+    </div>
+    <div class="w3-row">
+      <div>
+        <h4>
+          Network Science and Cognitive Intelligence Lab is led by Professor Pengfei Jiao and focuses
+          on Graph Neural Networks (GNNs) and their wide-ranging applications. The lab is dedicated to
+           advancing research in graph representation learning, heterogeneous graph modeling, dynamic
+           graph analysis, and exploring intelligent algorithms for various domains such as social networks,
+           recommender systems, and bioinformatics. In recent years, the lab has published numerous
+           high-impact papers in top-tier conferences and journals in artificial intelligence and data mining,
+           including NeurIPS, ICLR, KDD, AAAI, and IJCAI, establishing a strong academic reputation.
+        </h4>
+      </div>
+    </div>
+
+    <!-- 🔽 研究方向 -->
+    <div class="w3-row-padding" id="researchInterest">
+      <div class="w3-center w3-padding-32">
+        <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">RESEARCH</span>
+      </div>
+      <div class="w3-third">
+        <div class="w3-card-4">
+          <div class="w3-container research-card-container">
+            <img class="research-image" src="fig/GNN.jpg" alt="GNN" />
+            <h4>Graph Neural Network</h4>
+            <h6>Heterogeneous Graph<br />Dynamic Graph<br />Social Network</h6>
+          </div>
+        </div>
+      </div>
+     <div class="w3-third">
+        <div class="w3-card-4">
+          <div class="w3-container research-card-container">
+            <img class="research-image" src="fig/tml.jpg" alt="AI Security" />
+            <h4>AI Security</h4>
+            <h6>Trustworthy AI<br />Big data privacy<br />Software vulnerability discovery</h6>
+          </div>
+        </div>
+      </div>
+      <div class="w3-third">
+        <div class="w3-card-4">
+          <div class="w3-container research-card-container">
+            <img class="research-image" src="fig/cps.jpg" alt="CPS/IoT" />
+            <h4>CPS/IoT Security</h4>
+            <h6>Security in safety critical system<br />Cyber resiliency in IoT<br />Analog attacks on CPS sensors</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔽 代表性论文 -->
+    <div class="w3-row-padding">
+      <div class="w3-center w3-padding-32">
+        <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Representative Publications</span>
+      </div>
+      <div class="publication-container">
+        <div class="publication-item">
+          <div class="publication-content">
+            <span class="publication-type publication-type-BOOK">BOOK</span>
+            <a href="publication_details.html?id=1" class="publication-link">高跃，戴琼海. 超图计算. 科学出版社, 2025</a>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-content">
+            <span class="publication-type publication-type-BOOK">BOOK</span>
+            <a href="publication_details.html?id=2" class="publication-link">Olonghai Dai, Yue Gao. Hypergraph Computation. Springer, ISBN: 978-981-99-0184-5, 2023</a>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-content">
+            <span class="publication-type publication-type-BOOK">BOOK</span>
+            <a href="publication_details.html?id=3" class="publication-link">Yue Gao, Qionghai Dai. View-based 3-D Object Retrieval. Elsevier, ISBN: 978-0-12-802419-5, 2014</a>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-content">
+           <span class="publication-type publication-type-BOOK">BOOK</span>
+           <a href="publication_details.html?id=4" class="publication-link">Rongrong Ji, Yue Gao, Ling-Yu Duan, Hongxun Yao, Qionghai Dai. Learning-Based Local Visual Representation and Indexing. Elsevier, ISBN: 978-0-12-802409-6, 2015</a>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-content">
+            <span class="publication-type publication-type-IEEE-TPAMI">IEEE TPAMI</span>
+            <a href="publication_details.html?id=5" class="publication-link">Xiangmin Han, Huijian Zhou, Zhiqiang Tian, Shaoyi Du, Yue Gao. Inter-intra hypergraph computation for survival prediction on whole slide images. IEEE TPAMI, 2025</a>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-content">
+            <span class="publication-type publication-type-IEEE-TPAMI">IEEE TPAMI</span>
+            <a href="publication_details.html?id=6" class="publication-link">Yifan Feng, Jiangang Huang, Shaoyi Du, Shihui Ying, Jun-Hai Yong, Yipeng Li, Guiguang Ding, Rongrong Ji, Yue Gao. Hyper-YOLO: When visual object detection meets hypergraph computation. IEEE TPAMI, 2024</a>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-content">
+            <span class="publication-type publication-type-Engineering">Engineering</span>
+            <a href="publication_details.html?id=7" class="publication-link">Yue Gao, Shuyi Ji, Xiangmin Han, Qionghai Dai. Hypergraph Computation. Engineering, 2024</a>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-content">
+            <span class="publication-type publication-type-CVPR">CVPR</span>
+            <a href="publication_details.html?id=8" class="publication-link">Juncheng Mu, Lin Bie, Shaoyi Du, Yue Gao. ColorPCR: Color Point Cloud Registration with Multi-Stage Geometric-Color Fusion. CVPR, 2024</a>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-content">
+            <span class="publication-type publication-type-CVPR">CVPR</span>
+            <a href="publication_details.html?id=9" class="publication-link">Siqi Li, Zhikuan Zhou, Zhou Xue, Yipeng Li, Shaoyi Du, Yue Gao. 3D Feature Tracking via Event Camera. CVPR, 2024</a>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-content">
+            <span class="publication-type publication-type-ICLR">ICLR</span>
+            <a href="publication_details.html?id=10" class="publication-link">Jielong Yan, Yifan Feng, Shihui Ying, Yue Gao. Hypergraph Dynamic System. ICLR, 2024</a>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-content">
+            <span class="publication-type publication-type-ICLR">ICLR</span>
+            <a href="publication_details.html?id=11" class="publication-link">Yifan Feng, Yihe Luo, Shihui Ying, Yue Gao. LightHGNN: Distilling Hypergraph Neural Networks into MLPs for 100x Faster Inference. ICLR, 2024</a>
+          </div>
+        </div>
+     </div>
+    </div>
+
+    <!-- 更多论文按钮 -->
+    <div class="more-papers-container">
+      <a href="publication.html" class="more-papers-btn">MORE PUBLICATIONS</a>
+    </div>
+
+    <!-- 🔽 新闻 -->
+    <a class="anchor" id="news"></a>
+    <div class="w3-row-padding">
+      <div class="w3-center w3-padding-32">
+        <span class="w3-xlarge w3-center w3-bottombar w3-border-dark-grey w3-padding-16">Latest News</span>
+      </div>
+      <h6 class="pmargin">
+        - 5 papers accepted by IJCAI 2025!<br />- 1 paper accepted by AAAI 2025!
+      </h6>
+    </div>
+  </div>
+
+<!-- Footer -->
+<footer class="w3-container w3-footer-custom w3-center">
+  <div class="w3-footer-info">
+    <h4>Network Science & AI Group</h4>
+    <p><i class="fa fa-map-marker w3-margin-right"></i> Hangzhou Dianzi University, Qiantang District, Hangzhou, Zhejiang, China</p>
+    <p><i class="fa fa-envelope w3-margin-right"></i> email@example.com</p>
+    <p><i class="fa fa-phone w3-margin-right"></i> +86 123-4567-8910</p>
+  </div>
+  <a href="#" class="w3-button w3-black w3-footer-button">
+    <i class="fa fa-arrow-up w3-margin-right"></i>Back to Top
+  </a>
+  <p class="w3-footer-copyright">© 2024 Network Science & AI Group. All rights reserved.</p>
+</footer>
+
+   <!-- 🔽 滚动控制与菜单控制脚本 -->
+  <script>
+    window.addEventListener("scroll", function () {
+      const navbar = document.getElementById("navbar");
+      const navTitle = document.getElementById("navTitle");
+      const navSubTitle = document.getElementById("navSubTitle");
+      const secondaryLogo = document.getElementById("secondaryLogo");
+
+      if (window.scrollY > 100) {
+        navbar.classList.remove("transparent");
+        navbar.classList.add("solid", "shrink");
+        navTitle.classList.remove("hidden-title");
+        navTitle.classList.add("show-title");
+        navSubTitle.classList.remove("hidden-title");
+        navSubTitle.classList.add("show-title");
+        secondaryLogo.classList.remove("hidden-title");
+        secondaryLogo.classList.add("show-title");
+      } else {
+        navbar.classList.add("transparent");
+        navbar.classList.remove("solid", "shrink");
+        navTitle.classList.add("hidden-title");
+        navTitle.classList.remove("show-title");
+        navSubTitle.classList.add("hidden-title");
+        navSubTitle.classList.remove("show-title");
+        secondaryLogo.classList.add("hidden-title");
+        secondaryLogo.classList.remove("show-title");
+      }
+    });
+
+    // ✅ 改进的菜单切换函数
+    function toggleMenu() {
+      const menu = document.getElementById("navMenu");
+      menu.classList.toggle("show");
+    }
+  </script>
+</body>
+</html>

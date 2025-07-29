@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>NSAG - HDU</title>
+  <link rel="icon" type="image/jpeg" href="fig/logo.jpg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    html, body, h1, h2, h3, h4, h5 {
+      font-family: "Lato", sans-serif;
+    }
+
+    .w3-content {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .navbar-bg {
+      background-color: #e6f2ff !important;
+    }
+
+    /* 页脚背景样式 */
+    .w3-footer-custom {
+      background-color: #f5f5f5 !important; /* 浅灰色背景 */
+      padding-top: 8px !important;         /* 上内边距 */
+      padding-bottom: 8px !important;      /* 下内边距 */
+    }
+
+    /* 页脚内容容器 */
+    .w3-footer-info {
+      max-width: 1100px;                  /* 最大宽度 */
+      margin: 0 auto;                     /* 水平居中 */
+      text-align: left;                   /* 文本左对齐 */
+      padding: 4px 8px !important;        /* 内边距（上下4px，左右8px） */
+    }
+
+    /* 页脚段落文本 */
+    .w3-footer-info p {
+      margin: 1px 0 !important;           /* 段落间距（上下1px） */
+      font-size: 14px;                    /* 字体大小 */
+      color: #444;                        /* 文字颜色 */
+    }
+
+    /* 页脚标题 */
+    .w3-footer-info h4 {
+      font-size: 16px;                    /* 标题字体大小 */
+      font-weight: bold;                  /* 加粗 */
+    }
+
+    /* 返回顶部按钮 */
+    .w3-footer-button {
+      margin: 4px !important;             /* 按钮外边距 */
+    }
+
+    /* 版权信息 */
+    .w3-footer-copyright {
+      margin: 4px 0 !important;           /* 上下边距 */
+    }
+
+    /* Navbar styles */
+    .navbar-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .w3-bar-item.w3-button:hover {
+      background-color: rgba(241, 241, 241, 0.8) !important;
+    }
+
+    #mobileNav {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* Responsive navbar control */
+    @media screen and (max-width: 900px) {
+      .navbar-desktop-full {
+        display: none !important;
+      }
+      .navbar-desktop-menu {
+        display: none !important;
+      }
+      .navbar-mobile {
+        display: block !important;
+      }
+      .navbar-mobile-menu {
+        display: flex !important;
+      }
+    }
+
+    @media screen and (min-width: 901px) {
+      .navbar-desktop-full {
+        display: flex !important;
+      }
+      .navbar-desktop-menu {
+        display: flex !important;
+      }
+      .navbar-mobile {
+        display: none !important;
+      }
+      .navbar-mobile-menu {
+        display: none !important;
+      }
+    }
+
+    /* Modern Academic Layout Styles */
+    .people-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .people-section {
+      margin-bottom: 60px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 38px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    .section-subtitle {
+      font-size: 20px;
+      color: #7f8c8d;
+      font-weight: 400;
+      margin-bottom: 30px;
+    }
+
+    .category-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #34495e;
+      margin: 50px 0 30px 0;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #3498db;
+      position: relative;
+    }
+
+    .category-title::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: #e74c3c;
+    }
+
+    /* Faculty Grid - Fixed width, no stretching */
+    .faculty-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 300px);
+      gap: 30px;
+      margin-bottom: 50px;
+      justify-content: start;
+    }
+
+    /* Student Grid - Responsive */
+    .student-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .faculty-card, .student-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid #f8f9fa;
+    }
+
+    .faculty-card:hover, .student-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    .faculty-photo-container, .student-photo-container {
+      width: 100%;
+      height: 200px;
+      background-color: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .faculty-photo, .student-photo {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center;
+      transition: transform 0.3s ease;
+    }
+
+    .faculty-card:hover .faculty-photo, .student-card:hover .student-photo {
+      transform: scale(1.02);
+    }
+
+    /* Unified info styles for all members */
+    .faculty-info, .student-info {
+      padding: 20px;
+    }
+
+    .faculty-name, .student-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .faculty-position, .student-level {
+      font-size: 16px;
+      color: #3498db;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .faculty-research, .student-research {
+      font-size: 15px;
+      color: #7f8c8d;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .faculty-contact, .student-contact {
+      font-size: 14px;
+      color: #95a5a6;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .faculty-contact a, .student-contact a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .faculty-contact a:hover, .student-contact a:hover {
+      text-decoration: underline;
+    }
+
+    /* Alumni Section */
+    .alumni-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 40px;
+      margin-top: 60px;
+    }
+
+    .alumni-category {
+      margin-bottom: 35px;
+    }
+
+    .alumni-category h4 {
+      font-size: 20px;
+      color: #34495e;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .alumni-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 15px;
+    }
+
+    .alumni-item {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #3498db;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .alumni-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 6px;
+    }
+
+    .alumni-degree {
+      font-size: 15px;
+      color: #7f8c8d;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .alumni-research {
+      font-size: 14px;
+      color: #95a5a6;
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .alumni-current {
+      font-size: 14px;
+      color: #27ae60;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="navbar-container w3-large" style="display: flex; align-items: center; justify-content: space-between; height: auto; padding: 12px 0; width: 100%; max-width: none; position: relative;">
+
+    <!-- Left Side -->
+    <div style="display: flex; align-items: center; padding-left: 4px; white-space: nowrap;">
+      <!-- Desktop Full Layout -->
+      <div class="navbar-desktop-full" style="display: flex; align-items: center;">
+        <img src="fig/hdu_logo.png" alt="HDU" style="height:45px; margin-right:12px; margin-left:4px;">
+        <img src="fig/logo.jpg" alt="Lab Logo" style="height:45px; margin-right:15px;">
+        <div style="line-height:1.3; white-space: nowrap;">
+          <div style="font-size:16px; font-weight:500; color:#333;">网络科学与认知智能实验室</div>
+          <div style="font-size:12px; color:#666;">Network Science & AI Group</div>
+        </div>
+      </div>
+      <!-- Mobile Layout -->
+      <div class="navbar-mobile" style="display: none;">
+        <div style="font-size:20px; font-weight:bold; color:#333; margin-left:4px;">NSAG-Lab</div>
+      </div>
+    </div>
+
+    <!-- Right Side -->
+    <div style="padding-right: 4px; white-space: nowrap;">
+      <!-- Desktop Layout -->
+      <div class="navbar-desktop-menu" style="display: flex; align-items: center;">
+        <a href="index_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px;">首页</a>
+        <a href="members_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px;">成员</a>
+        <a href="publication_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px;">发表</a>
+        <a href="members.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px; margin-right:4px;">EN</a>
+      </div>
+      <!-- Mobile Layout -->
+      <div class="navbar-mobile-menu" style="display: none; align-items: center;">
+        <a href="members.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 12px; margin-right:4px;">EN</a>
+        <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-light-grey" onclick="toggleMobileMenu()" style="padding:8px 12px; margin-right:4px;">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Dropdown -->
+  <div id="mobileNav" class="w3-bar-block w3-hide" style="margin-top:0;">
+    <a href="index_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:12px 16px;">首页</a>
+    <a href="members_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:12px 16px;">成员</a>
+    <a href="publication_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:12px 16px;">发表</a>
+  </div>
+</div>
+
+
+<!-- Main Content -->
+<div class="people-container" style="margin-top:100px; margin-bottom:80px;">
+
+  <!-- Page Header -->
+  <div class="section-header">
+    <h1 class="section-title">实验室成员</h1>
+    <p class="section-subtitle">网络科学与认知智能实验室团队</p>
+  </div>
+
+  <!-- Faculty Section -->
+  <div class="people-section">
+    <h2 class="category-title">教师团队</h2>
+    <div class="faculty-grid">
+      <div class="faculty-card">
+        <div class="faculty-photo-container">
+          <img src="fig/jpf.jpg" alt="Pengfei Jiao" class="faculty-photo">
+        </div>
+        <div class="faculty-info">
+          <div class="faculty-name">焦鹏飞 (Pengfei Jiao)</div>
+          <div class="faculty-position">实验室主任，教授</div>
+          <div class="faculty-research">复杂网络分析，图神经网络，社交网络挖掘</div>
+          <div class="faculty-contact">📧 pjiao@hdu.edu.cn</div>
+          <div class="faculty-contact">🌐 <a href="https://cspjiao.github.io/" target="_blank">个人主页</a></div>
+        </div>
+      </div>
+
+      <div class="faculty-card">
+        <div class="faculty-photo-container">
+          <img src="fig/gmz.png" alt="Mengzhou Gao" class="faculty-photo">
+        </div>
+        <div class="faculty-info">
+          <div class="faculty-name">高孟州 (Mengzhou Gao)</div>
+          <div class="faculty-position">副教授</div>
+          <div class="faculty-research">机器学习，数据挖掘，智能算法</div>
+          <div class="faculty-contact">📧 mzgao@hdu.edu.cn</div>
+          <div class="faculty-contact" style="visibility: hidden;">占位行</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PhD Students Section -->
+  <div class="people-section">
+    <h2 class="category-title">博士研究生</h2>
+    <div class="student-grid">
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/lh.jpg" alt="Huan Liu" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">刘欢 (Huan Liu)</div>
+          <div class="student-level">博士研究生 · 2024级</div>
+          <div class="student-research">复杂图分析，表示学习</div>
+          <div class="student-contact">📧 huanliu@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/chj.jpg" alt="Hongjiang Chen" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">陈宏江 (Hongjiang Chen)</div>
+          <div class="student-level">博士研究生 · 2024级</div>
+          <div class="student-research">时序图学习，可信AI</div>
+          <div class="student-contact">📧 hchen@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/lzh.jpg" alt="Zehao Liu" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">刘泽昊 (Zehao Liu)</div>
+          <div class="student-level">博士研究生 · 2025级</div>
+          <div class="student-research">时间序列分析，可解释AI</div>
+          <div class="student-contact">📧 zehaoliu@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/qhy.jpg" alt="Hanyan Qin" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">秦涵妍 (Hanyan Qin)</div>
+          <div class="student-level">博士研究生 · 2025级</div>
+          <div class="student-research">研究方向待定</div>
+          <div class="student-contact">📧 联系方式待更新</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Master and Undergraduate Students Section -->
+  <div class="people-section">
+    <h2 class="category-title">硕士和本科研究生</h2>
+    <div class="student-grid">
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/zxx.jpg" alt="Xinxun Zhang" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">张鑫迅 (Xinxun Zhang)</div>
+          <div class="student-level">硕士研究生 · 2022级</div>
+          <div class="student-research">动态图学习</div>
+          <div class="student-contact">📧 xxzhang@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/jy.jpeg" alt="Ying Jiang" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">蒋颖 (Ying Jiang)</div>
+          <div class="student-level">硕士研究生 · 2022级</div>
+          <div class="student-research">源定位</div>
+          <div class="student-contact">📧 yjiang@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/yky.jpg" alt="Kanyan Yu" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">余凯妍 (Kanyan Yu)</div>
+          <div class="student-level">硕士研究生 · 2022级</div>
+          <div class="student-research">图对比学习</div>
+          <div class="student-contact">📧 yukaiyan0913@163.com</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/chq.jpeg" alt="Hongqian Chen" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">陈宏谦 (Hongqian Chen)</div>
+          <div class="student-level">硕士研究生 · 2022级</div>
+          <div class="student-research">信息扩散</div>
+          <div class="student-contact">📧 hqchen@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/dm.jpg" alt="Ming Du" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">杜明 (Ming Du)</div>
+          <div class="student-level">硕士研究生 · 2022级</div>
+          <div class="student-research">角色导向网络嵌入学习，图Transformer</div>
+          <div class="student-contact">📧 mdu@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/zza.jpg" alt="Zian Zhou" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">周子安 (Zian Zhou)</div>
+          <div class="student-level">硕士研究生 · 2022级</div>
+          <div class="student-research">联邦学习，图神经网络</div>
+          <div class="student-contact">📧 zza_1998@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/lyq.jpg" alt="Yuanqi Liu" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">刘元琦 (Yuanqi Liu)</div>
+          <div class="student-level">硕士研究生 · 2022级</div>
+          <div class="student-research">网络对齐，双曲图神经网络</div>
+          <div class="student-contact">📧 yqliu@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/wtx.jpg" alt="Tianxu Wang" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">王天旭 (Tianxu Wang)</div>
+          <div class="student-level">硕士研究生 · 2024级</div>
+          <div class="student-research">生物信息学与大语言模型集成</div>
+          <div class="student-contact">📧 975945760@qq.com</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/lyl.jpg" alt="Yinliang Liu" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">刘银亮 (Yinliang Liu)</div>
+          <div class="student-level">硕士研究生 · 2024级</div>
+          <div class="student-research">时间序列预测，图神经网络</div>
+          <div class="student-contact">📧 lyinliang@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/zsy.jpg" alt="Songying Zhu" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">朱松颖 (Songying Zhu)</div>
+          <div class="student-level">本科生 · 2021级</div>
+          <div class="student-research">多变量时间序列分析，异常检测</div>
+          <div class="student-contact">📧 15700179307@163.com</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/lyf.jpg" alt="Yifan Lu" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">陆一帆 (Yifan Lu)</div>
+          <div class="student-level">本科生 · 2021级</div>
+          <div class="student-research">可信图学习，异构图</div>
+          <div class="student-contact">📧 lyfcan@hdu.edu.cn</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Alumni Section -->
+  <div class="alumni-section">
+    <h2 class="category-title" style="margin-top: 0;">校友</h2>
+
+    <div class="alumni-category">
+      <h4>博士毕业生</h4>
+      <div class="alumni-list">
+        <div class="alumni-item">
+          <div class="alumni-name">李明华 (Minghua Li)</div>
+          <div class="alumni-degree">博士 · 2020-2024</div>
+          <div class="alumni-research">深度图学习，知识图谱</div>
+          <div class="alumni-current">🏢 阿里巴巴集团 · 高级算法工程师</div>
+        </div>
+
+        <div class="alumni-item">
+          <div class="alumni-name">王雪梅 (Xuemei Wang)</div>
+          <div class="alumni-degree">博士 · 2019-2023</div>
+          <div class="alumni-research">时间序列分析，异常检测</div>
+          <div class="alumni-current">🏢 华为技术有限公司 · 研究科学家</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alumni-category">
+      <h4>硕士毕业生</h4>
+      <div class="alumni-list">
+        <div class="alumni-item">
+          <div class="alumni-name">严鹏 (Peng Yan)</div>
+          <div class="alumni-degree">硕士 · 2021-2024</div>
+          <div class="alumni-research">扩散预测</div>
+          <div class="alumni-current">🏢 腾讯科技 · 算法工程师</div>
+        </div>
+
+        <div class="alumni-item">
+          <div class="alumni-name">宋维健 (Weijian Song)</div>
+          <div class="alumni-degree">硕士 · 2021-2024</div>
+          <div class="alumni-research">级联流行度预测</div>
+          <div class="alumni-current">🏢 字节跳动 · 数据科学家</div>
+        </div>
+
+        <div class="alumni-item">
+          <div class="alumni-name">陈志豪 (Zhihao Chen)</div>
+          <div class="alumni-degree">硕士 · 2021-2024</div>
+          <div class="alumni-research">网络对齐</div>
+          <div class="alumni-current">🏢 百度 · 机器学习工程师</div>
+        </div>
+
+        <div class="alumni-item">
+          <div class="alumni-name">张伟 (Wei Zhang)</div>
+          <div class="alumni-degree">硕士 · 2020-2023</div>
+          <div class="alumni-research">图神经网络</div>
+          <div class="alumni-current">🏢 美团 · 高级开发工程师</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alumni-category">
+      <h4>本科毕业生</h4>
+      <div class="alumni-list">
+        <div class="alumni-item">
+          <div class="alumni-name">王小明 (Xiaoming Wang)</div>
+          <div class="alumni-degree">本科 · 2018-2022</div>
+          <div class="alumni-research">机器学习基础</div>
+          <div class="alumni-current">🎓 清华大学计算机系 · 硕士研究生</div>
+        </div>
+
+        <div class="alumni-item">
+          <div class="alumni-name">李小红 (Xiaohong Li)</div>
+          <div class="alumni-degree">本科 · 2018-2022</div>
+          <div class="alumni-research">数据挖掘</div>
+          <div class="alumni-current">🎓 北京大学信息科学技术学院 · 硕士研究生</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-footer-custom w3-center">
+  <div class="w3-footer-info">
+    <h4>网络科学与认知智能实验室</h4>
+    <p><i class="fa fa-map-marker w3-margin-right"></i> 中国浙江省杭州市钱塘区杭州电子科技大学</p>
+    <p><i class="fa fa-envelope w3-margin-right"></i> email@example.com</p>
+    <p><i class="fa fa-phone w3-margin-right"></i> +86 123-4567-8910</p>
+  </div>
+  <a href="#" class="w3-button w3-black w3-footer-button">
+    <i class="fa fa-arrow-up w3-margin-right"></i>返回顶部
+  </a>
+  <p class="w3-footer-copyright">© 2024 网络科学与认知智能实验室. 保留所有权利.</p>
+</footer>
+
+<script>
+  function toggleMobileMenu() {
+    var x = document.getElementById("mobileNav");
+    if (x.className.indexOf("w3-show") === -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+</script>
+
+</body>
+</html>
