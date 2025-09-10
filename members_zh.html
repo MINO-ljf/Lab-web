@@ -37,6 +37,11 @@
       padding: 4px 8px !important;        /* 内边距（上下4px，左右8px） */
     }
 
+    /* 版权信息 */
+    .w3-footer-copyright {
+      margin: 4px 0 !important;           /* 上下边距 */
+    }
+
     /* 页脚段落文本 */
     .w3-footer-info p {
       margin: 1px 0 !important;           /* 段落间距（上下1px） */
@@ -55,10 +60,7 @@
       margin: 4px !important;             /* 按钮外边距 */
     }
 
-    /* 版权信息 */
-    .w3-footer-copyright {
-      margin: 4px 0 !important;           /* 上下边距 */
-    }
+    
 
     /* Navbar styles */
     .navbar-container {
@@ -258,6 +260,8 @@
       text-decoration: underline;
     }
 
+    
+
     /* Alumni Section */
     .alumni-section {
       background: #f8f9fa;
@@ -380,20 +384,23 @@
     <p class="section-subtitle">网络科学与认知智能实验室团队</p>
   </div>
 
+
+
   <!-- Faculty Section -->
-  <div class="people-section">
+   <div class="people-section">
     <h2 class="category-title">教师团队</h2>
-    <div class="faculty-grid">
+    <div class="student-grid">
+ 
       <div class="faculty-card">
         <div class="faculty-photo-container">
           <img src="fig/jpf.jpg" alt="Pengfei Jiao" class="faculty-photo">
         </div>
         <div class="faculty-info">
           <div class="faculty-name">焦鹏飞 (Pengfei Jiao)</div>
-          <div class="faculty-position">实验室主任，教授</div>
+          <div class="faculty-position">实验室负责人, 教授</div>
           <div class="faculty-research">复杂网络分析，图神经网络，社交网络挖掘</div>
           <div class="faculty-contact">📧 pjiao@hdu.edu.cn</div>
-          <div class="faculty-contact">🌐 <a href="https://cspjiao.github.io/" target="_blank">个人主页</a></div>
+          <div class="faculty-contact">🌐 <a href="https://cspjiao.github.io/" target="_blank">Personal Homepage</a></div>
         </div>
       </div>
 
@@ -409,8 +416,35 @@
           <div class="faculty-contact" style="visibility: hidden;">占位行</div>
         </div>
       </div>
+
+      <div class="faculty-card">
+        <div class="faculty-photo-container">
+          <img src="fig/wyl.jpg" alt="Yuling Wang" class="faculty-photo">
+        </div>
+        <div class="faculty-info">
+          <div class="faculty-name">王玉玲 (Yuling Wang)</div>
+          <div class="faculty-position">副教授</div>
+          <div class="faculty-research">人工智能，大模型，图机器学习，推荐系统及人工智能安全</div>
+          <div class="faculty-contact">📧 wangyl0612@hdu.edu.cn</div>
+          <div class="faculty-contact" style="visibility: hidden;">占位行</div>
+        </div>
+      </div>
+
+      <div class="faculty-card">
+        <div class="faculty-photo-container">
+          <img src="fig/bq.jpg" alt="Qing Bao" class="faculty-photo">
+        </div>
+        <div class="faculty-info">
+          <div class="faculty-name">鲍青 (Qing Bao)</div>
+          <div class="faculty-position">副教授</div>
+          <div class="faculty-research">复杂网络上的信息传播</div>
+          <div class="faculty-contact">📧 qbao@hdu.edu.cn</div>
+          <div class="faculty-contact" style="visibility: hidden;">占位行</div>
+        </div>
+      </div>
     </div>
   </div>
+
 
   <!-- PhD Students Section -->
   <div class="people-section">
@@ -423,7 +457,7 @@
         <div class="student-info">
           <div class="student-name">刘欢 (Huan Liu)</div>
           <div class="student-level">博士研究生 · 2024级</div>
-          <div class="student-research">复杂图分析，表示学习</div>
+          <div class="student-research">动态异质图表征学习</div>
           <div class="student-contact">📧 huanliu@hdu.edu.cn</div>
         </div>
       </div>
@@ -435,7 +469,7 @@
         <div class="student-info">
           <div class="student-name">陈宏江 (Hongjiang Chen)</div>
           <div class="student-level">博士研究生 · 2024级</div>
-          <div class="student-research">时序图学习，可信AI</div>
+          <div class="student-research">动态图神经网络，数据挖掘</div>
           <div class="student-contact">📧 hchen@hdu.edu.cn</div>
         </div>
       </div>
@@ -457,99 +491,89 @@
           <img src="fig/qhy.jpg" alt="Hanyan Qin" class="student-photo">
         </div>
         <div class="student-info">
-          <div class="student-name">秦涵妍 (Hanyan Qin)</div>
+          <div class="student-name">秦寒嫣 (Hanyan Qin)</div>
           <div class="student-level">博士研究生 · 2025级</div>
           <div class="student-research">研究方向待定</div>
           <div class="student-contact">📧 联系方式待更新</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/ll.jpg" alt="Le Lv" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">吕乐 (Le Lv)</div>
+          <div class="student-level">博士研究生 · 2025级</div>
+          <div class="student-research">多模态图</div>
+          <div class="student-contact">📧 256270195@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/myr.png" alt="Yiran Ma" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">马一然 (Yiran Ma)</div>
+          <div class="student-level">博士研究生 · 2025级</div>
+          <div class="student-research">生物信息学</div>
+          <div class="student-contact">📧 24147621@qq.com</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/ljf.jpg" alt="Junfeng Lin" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">林俊锋 (Junfeng Lin)</div>
+          <div class="student-level">PhD Student · Class of 2025</div>
+          <div class="student-research">智能体</div>
+          <div class="student-contact">📧 ljf_7150@163.com</div>
         </div>
       </div>
     </div>
   </div>
   <!-- Master and Undergraduate Students Section -->
   <div class="people-section">
-    <h2 class="category-title">硕士和本科研究生</h2>
+    <h2 class="category-title">硕士研究生和本科生</h2>
     <div class="student-grid">
+
+
       <div class="student-card">
         <div class="student-photo-container">
-          <img src="fig/zxx.jpg" alt="Xinxun Zhang" class="student-photo">
+          <img src="fig/xy.jpeg" alt="Yuan XU" class="student-photo">
         </div>
         <div class="student-info">
-          <div class="student-name">张鑫迅 (Xinxun Zhang)</div>
-          <div class="student-level">硕士研究生 · 2022级</div>
-          <div class="student-research">动态图学习</div>
-          <div class="student-contact">📧 xxzhang@hdu.edu.cn</div>
+          <div class="student-name">徐洋 (Yuan XU)</div>
+          <div class="student-level">硕士研究生 · 2023级</div>
+          <div class="student-research">时间序列预测</div>
+          <div class="student-contact">📧 863252054@qq.com</div>
         </div>
       </div>
 
       <div class="student-card">
         <div class="student-photo-container">
-          <img src="fig/jy.jpeg" alt="Ying Jiang" class="student-photo">
+          <img src="fig/yjt.jpg" alt="Jinting Ye" class="student-photo">
         </div>
         <div class="student-info">
-          <div class="student-name">蒋颖 (Ying Jiang)</div>
-          <div class="student-level">硕士研究生 · 2022级</div>
-          <div class="student-research">源定位</div>
-          <div class="student-contact">📧 yjiang@hdu.edu.cn</div>
+          <div class="student-name">叶进挺 (Jinting Ye)</div>
+          <div class="student-level">硕士研究生 · 2023级</div>
+          <div class="student-research">流行病预测</div>
+          <div class="student-contact">📧 jtye@hdu.edu.cn</div>
         </div>
       </div>
 
       <div class="student-card">
         <div class="student-photo-container">
-          <img src="fig/yky.jpg" alt="Kanyan Yu" class="student-photo">
+          <img src="fig/zjl.jpg" alt="Jieling Zhang" class="student-photo">
         </div>
         <div class="student-info">
-          <div class="student-name">余凯妍 (Kanyan Yu)</div>
-          <div class="student-level">硕士研究生 · 2022级</div>
-          <div class="student-research">图对比学习</div>
-          <div class="student-contact">📧 yukaiyan0913@163.com</div>
-        </div>
-      </div>
-
-      <div class="student-card">
-        <div class="student-photo-container">
-          <img src="fig/chq.jpeg" alt="Hongqian Chen" class="student-photo">
-        </div>
-        <div class="student-info">
-          <div class="student-name">陈宏谦 (Hongqian Chen)</div>
-          <div class="student-level">硕士研究生 · 2022级</div>
-          <div class="student-research">信息扩散</div>
-          <div class="student-contact">📧 hqchen@hdu.edu.cn</div>
-        </div>
-      </div>
-
-      <div class="student-card">
-        <div class="student-photo-container">
-          <img src="fig/dm.jpg" alt="Ming Du" class="student-photo">
-        </div>
-        <div class="student-info">
-          <div class="student-name">杜明 (Ming Du)</div>
-          <div class="student-level">硕士研究生 · 2022级</div>
-          <div class="student-research">角色导向网络嵌入学习，图Transformer</div>
-          <div class="student-contact">📧 mdu@hdu.edu.cn</div>
-        </div>
-      </div>
-
-      <div class="student-card">
-        <div class="student-photo-container">
-          <img src="fig/zza.jpg" alt="Zian Zhou" class="student-photo">
-        </div>
-        <div class="student-info">
-          <div class="student-name">周子安 (Zian Zhou)</div>
-          <div class="student-level">硕士研究生 · 2022级</div>
-          <div class="student-research">联邦学习，图神经网络</div>
-          <div class="student-contact">📧 zza_1998@hdu.edu.cn</div>
-        </div>
-      </div>
-
-      <div class="student-card">
-        <div class="student-photo-container">
-          <img src="fig/lyq.jpg" alt="Yuanqi Liu" class="student-photo">
-        </div>
-        <div class="student-info">
-          <div class="student-name">刘元琦 (Yuanqi Liu)</div>
-          <div class="student-level">硕士研究生 · 2022级</div>
-          <div class="student-research">网络对齐，双曲图神经网络</div>
-          <div class="student-contact">📧 yqliu@hdu.edu.cn</div>
+          <div class="student-name">张杰灵 (Jieling Zhang)</div>
+          <div class="student-level">硕士研究生 · 2023级</div>
+          <div class="student-research">通信系统结合图神经网络</div>
+          <div class="student-contact">📧 232270031@hdu.edu.cn</div>
         </div>
       </div>
 
@@ -579,84 +603,196 @@
 
       <div class="student-card">
         <div class="student-photo-container">
-          <img src="fig/zsy.jpg" alt="Songying Zhu" class="student-photo">
+          <img src="fig/wkw.jpg" alt="Kaiwei Wang" class="student-photo">
         </div>
         <div class="student-info">
-          <div class="student-name">朱松颖 (Songying Zhu)</div>
-          <div class="student-level">本科生 · 2021级</div>
-          <div class="student-research">多变量时间序列分析，异常检测</div>
-          <div class="student-contact">📧 15700179307@163.com</div>
+          <div class="student-name">汪凯炜 (Kaiwei Wang)</div>
+          <div class="student-level">硕士研究生 · 2024级</div>
+          <div class="student-research">时间序列，动力学建模，图神经网络</div>
+          <div class="student-contact">📧 242270042@hdu.edu.cn</div>
         </div>
       </div>
 
       <div class="student-card">
         <div class="student-photo-container">
-          <img src="fig/lyf.jpg" alt="Yifan Lu" class="student-photo">
+          <img src="fig/lyl(2024).png" alt="Yinliang Liu" class="student-photo">
         </div>
         <div class="student-info">
-          <div class="student-name">陆一帆 (Yifan Lu)</div>
-          <div class="student-level">本科生 · 2021级</div>
-          <div class="student-research">可信图学习，异构图</div>
-          <div class="student-contact">📧 lyfcan@hdu.edu.cn</div>
+          <div class="student-name">刘胤良 (Yinliang Liu)</div>
+          <div class="student-level">硕士研究生 · 2024级</div>
+          <div class="student-research">时间序列预测</div>
+          <div class="student-contact">📧 242270044@hdu.edu.cn</div>
         </div>
       </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/zw.jpeg" alt="Wang Zeng" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">曾旺 (Wang Zeng)</div>
+          <div class="student-level">硕士研究生 · 2024级</div>
+          <div class="student-research">车辆网，强化学习</div>
+          <div class="student-contact">📧 242270069@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/cz.jpeg" alt="Zhe Chen" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">陈哲 (Zhe Chen)</div>
+          <div class="student-level">硕士研究生 · 2024级</div>
+          <div class="student-research">大语言模型在推荐系统中的应用</div>
+          <div class="student-contact">📧 2586790199@qq.com</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/jyj.jpg" alt="Jiayi Jin" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">金佳奕 (Jiayi Jin)</div>
+          <div class="student-level">硕士研究生 · 2024级</div>
+          <div class="student-research">虚假新闻检测</div>
+          <div class="student-contact">📧 2573048578@qq.com</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/zh.jpeg" alt="Huan Zhou" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">周欢 (Huan Zhou)</div>
+          <div class="student-level">硕士研究生 · 2025级</div>
+          <div class="student-research">GNN结合安全</div>
+          <div class="student-contact">📧 zhou20214@126.com</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/ly.jpg" alt="Yin Li" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">李银 (Yin Li)</div>
+          <div class="student-level">硕士研究生 · 2025级</div>
+          <div class="student-research">图联邦学习</div>
+          <div class="student-contact">📧 252270083@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/wjj.jpg" alt="Jiajun Wang" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">王嘉骏 (Jiajun Wang)</div>
+          <div class="student-level">硕士研究生 · 2025级</div>
+          <div class="student-research">网络对齐</div>
+          <div class="student-contact">📧 251270008@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/zjl(m).jpeg" alt="Junlong Zhao" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">赵骏龙 (Junlong Zhao)</div>
+          <div class="student-level">硕士研究生 · 2025级</div>
+          <div class="student-research">无</div>
+          <div class="student-contact">📧 252270078@hdu.edu.cn</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/xl.jpeg" alt="Lei Xie" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">谢磊 (Lei Xie)</div>
+          <div class="student-level">硕士研究生 · 2025级</div>
+          <div class="student-research">图联邦学习</div>
+          <div class="student-contact">📧 stonexie@foxmail.com</div>
+        </div>
+      </div>
+
+      <div class="student-card">
+        <div class="student-photo-container">
+          <img src="fig/qz.jpg" alt="Zheng Qian" class="student-photo">
+        </div>
+        <div class="student-info">
+          <div class="student-name">钱正 (Zheng Qian)</div>
+          <div class="student-level">硕士研究生 · 2025级</div>
+          <div class="student-research">图联邦学习</div>
+          <div class="student-contact">📧 18058384580@163.com</div>
+        </div>
+      </div>
+
+
     </div>
   </div>
 
 
 
-  <!-- Alumni Section -->
+<!-- Alumni Section -->
   <div class="alumni-section">
     <h2 class="category-title" style="margin-top: 0;">校友</h2>
-
-    <div class="alumni-category">
-      <h4>博士毕业生</h4>
-      <div class="alumni-list">
-        <div class="alumni-item">
-          <div class="alumni-name">李明华 (Minghua Li)</div>
-          <div class="alumni-degree">博士 · 2020-2024</div>
-          <div class="alumni-research">深度图学习，知识图谱</div>
-          <div class="alumni-current">🏢 阿里巴巴集团 · 高级算法工程师</div>
-        </div>
-
-        <div class="alumni-item">
-          <div class="alumni-name">王雪梅 (Xuemei Wang)</div>
-          <div class="alumni-degree">博士 · 2019-2023</div>
-          <div class="alumni-research">时间序列分析，异常检测</div>
-          <div class="alumni-current">🏢 华为技术有限公司 · 研究科学家</div>
-        </div>
-      </div>
-    </div>
 
     <div class="alumni-category">
       <h4>硕士毕业生</h4>
       <div class="alumni-list">
         <div class="alumni-item">
-          <div class="alumni-name">严鹏 (Peng Yan)</div>
-          <div class="alumni-degree">硕士 · 2021-2024</div>
-          <div class="alumni-research">扩散预测</div>
-          <div class="alumni-current">🏢 腾讯科技 · 算法工程师</div>
+          <div class="alumni-name">张鑫迅 (Xinxun Zhang)</div>
+          <div class="alumni-degree">硕士 · 2022-2025</div>
+          <div class="alumni-research">动态图学习</div>
+          <div class="alumni-current"></div>
         </div>
 
         <div class="alumni-item">
-          <div class="alumni-name">宋维健 (Weijian Song)</div>
-          <div class="alumni-degree">硕士 · 2021-2024</div>
-          <div class="alumni-research">级联流行度预测</div>
-          <div class="alumni-current">🏢 字节跳动 · 数据科学家</div>
+          <div class="alumni-name">蒋颖 (Ying Jiang)</div>
+          <div class="alumni-degree">硕士 · 2022-2025</div>
+          <div class="alumni-research">源定位</div>
+          <div class="alumni-current"></div>
         </div>
 
         <div class="alumni-item">
-          <div class="alumni-name">陈志豪 (Zhihao Chen)</div>
-          <div class="alumni-degree">硕士 · 2021-2024</div>
-          <div class="alumni-research">网络对齐</div>
-          <div class="alumni-current">🏢 百度 · 机器学习工程师</div>
+          <div class="alumni-name">余凯妍 (Kanyan Yu)</div>
+          <div class="alumni-degree">硕士 · 2022-2025</div>
+          <div class="alumni-research">图对比学习</div>
+          <div class="alumni-current"></div>
         </div>
 
         <div class="alumni-item">
-          <div class="alumni-name">张伟 (Wei Zhang)</div>
-          <div class="alumni-degree">硕士 · 2020-2023</div>
-          <div class="alumni-research">图神经网络</div>
-          <div class="alumni-current">🏢 美团 · 高级开发工程师</div>
+          <div class="alumni-name">陈宏谦 (Hongqian Chen)</div>
+          <div class="alumni-degree">硕士 · 2022-2025</div>
+          <div class="alumni-research">信息扩散</div>
+          <div class="alumni-current"></div>
+        </div>
+
+        <div class="alumni-item">
+          <div class="alumni-name">杜明 (Ming Du)</div>
+          <div class="alumni-degree">硕士 · 2022-2025</div>
+          <div class="alumni-research">角色导向网络嵌入学习，图Transformer</div>
+          <div class="alumni-current"></div>
+        </div>
+
+        <div class="alumni-item">
+          <div class="alumni-name">周子安 (Zian Zhou)</div>
+          <div class="alumni-degree">硕士 · 2022-2025</div>
+          <div class="alumni-research">联邦学习，图神经网络</div>
+          <div class="alumni-current"></div>
+        </div>
+
+        <div class="alumni-item">
+          <div class="alumni-name">刘元琦 (Yuanqi Liu)</div>
+          <div class="alumni-degree">硕士 · 2022-2025</div>
+          <div class="alumni-research">网络对齐，双曲图神经网络</div>
+          <div class="alumni-current"></div>
         </div>
       </div>
     </div>
@@ -665,17 +801,17 @@
       <h4>本科毕业生</h4>
       <div class="alumni-list">
         <div class="alumni-item">
-          <div class="alumni-name">王小明 (Xiaoming Wang)</div>
-          <div class="alumni-degree">本科 · 2018-2022</div>
-          <div class="alumni-research">机器学习基础</div>
-          <div class="alumni-current">🎓 清华大学计算机系 · 硕士研究生</div>
+          <div class="alumni-name">朱松颖 (Songying Zhu)</div>
+          <div class="alumni-degree">本科 · 2021-2025</div>
+          <div class="alumni-research">多变量时间序列分析，异常检测</div>
+          <div class="alumni-current"></div>
         </div>
 
         <div class="alumni-item">
-          <div class="alumni-name">李小红 (Xiaohong Li)</div>
-          <div class="alumni-degree">本科 · 2018-2022</div>
-          <div class="alumni-research">数据挖掘</div>
-          <div class="alumni-current">🎓 北京大学信息科学技术学院 · 硕士研究生</div>
+          <div class="alumni-name">陆一帆 (Yifan Lu)</div>
+          <div class="alumni-degree">本科 · 2021-2025</div>
+          <div class="alumni-research">可信图学习，异构图</div>
+          <div class="alumni-current"></div>
         </div>
       </div>
     </div>
@@ -687,8 +823,7 @@
   <div class="w3-footer-info">
     <h4>网络科学与认知智能实验室</h4>
     <p><i class="fa fa-map-marker w3-margin-right"></i> 中国浙江省杭州市钱塘区杭州电子科技大学</p>
-    <p><i class="fa fa-envelope w3-margin-right"></i> email@example.com</p>
-    <p><i class="fa fa-phone w3-margin-right"></i> +86 123-4567-8910</p>
+    <p><i class="fa fa-envelope w3-margin-right"></i> pjiao@hdu.edu.cn</p>
   </div>
   <a href="#" class="w3-button w3-black w3-footer-button">
     <i class="fa fa-arrow-up w3-margin-right"></i>返回顶部
@@ -700,6 +835,17 @@
   function toggleMobileMenu() {
     var x = document.getElementById("mobileNav");
     if (x.className.indexOf("w3-show") === -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+</script>
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
       x.className += " w3-show";
     } else {
       x.className = x.className.replace(" w3-show", "");
