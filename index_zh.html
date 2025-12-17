@@ -2,791 +2,1146 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NSAG - HDU</title>
-  <link rel="icon" type="image/jpeg" href="fig/logo.jpg" />
-  <link rel="stylesheet" href="w3.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Network Science & Cognitive Intelligence - 杭州电子科技大学网络科学与认知智能实验室，专注于图神经网络、AI安全和图智能应用研究" />
+  <meta name="keywords" content="图神经网络, AI安全, 网络科学, 机器学习, 杭州电子科技大学" />
+  <meta name="author" content="Network Science & Cognitive Intelligence" />
+
+  <title>NSCI - Network Science & Cognitive Intelligence | HDU</title>
+  <link rel="icon" type="image/jpeg" href="fig/logot.png" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
   <style>
-    html, body, h1, h2, h3, h4 {
-      font-family: "Lato", sans-serif;
+    /* ========================================
+       🎨 GLOBAL STYLES
+    ======================================== */
+    :root {
+      --primary: #2563eb;
+      --secondary: #8b5cf6;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444; /* 用于新闻日期文字 */
+      --dark: #0f172a;
+      --light: #ffffff;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-600: #475569;
+      --gray-900: #0f172a;
+      --gradient-primary: linear-gradient(45deg, #2563eb, #06b6d4);
+      --section-padding: 100px 0;
+      --card-radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .banner {
-      background-image: url("fig/bg.jpg");
-      background-size: cover;
-      background-position: center;
-      height: 450px;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: 'Inter', sans-serif; color: var(--dark); background: #f6f6f6; line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-height: 1.2; }
+
+    /* 黑色标题 + 下划线样式 */
+    .section-title {
+      font-size: 2.2rem; 
+      font-weight: 400; 
+      text-align: center; 
+      margin-bottom: 2rem; 
+      color: var(--dark); 
       position: relative;
-      color: white;
-      text-align: center;
-      overflow: hidden;
     }
 
-    .banner-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      color: white;
-      text-align: left;
-      width: 90%;
-      max-width: 1200px;
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 200px; 
+      height: 8px; 
+      background: var(--primary); 
+      margin: 10px auto 0 auto;
+      border-radius: 2px;
     }
-
-    .banner-logo {
-      height: 120px;
-      width: auto;
-      flex-shrink: 0;
+    
+    .section { padding: 1.5rem 0; }
+    .section-light { background: var(--light); }
+    .container-custom { max-width: 1480px; margin: 0 auto; padding: 0 2rem; }
+    .btn-primary-gradient {
+      background: var(--gradient-primary); color: white; padding: 0.875rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: var(--transition); border: none; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
     }
+    .btn-primary-gradient:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4); color: white; }
 
-    .banner-text {
+    /* ========================================
+       1. Hero 区域
+    ======================================== */
+    .hero-wrapper {
+      position: relative;
+      height: 48vh; 
+      min-height: 400px;
+      width: 100%;
+      background-image: url('fig/bg.jpg'); 
+      
+      /* 1. 宽度随窗口变化 (保持铺满) */
+      background-size: cover;
+      
+      /* 2. 底部对齐 (重点) */
+      background-position: center bottom;
+      
+      /* 3. 取消视差滚动 (关键步骤) */
+      /* 改为 scroll，图片就会老老实实待在容器里，底部就会跟白色交接处对齐了 */
+      background-attachment: scroll; 
+      
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
+      overflow: hidden;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-overlay {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 25, 47, 0.45);
+      z-index: 1;
+    }
+
+    .hero-content-new {
+      position: relative; 
+      z-index: 2; 
+      transform: translateY(-20px);
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-header-group {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 1rem;
+      margin-top: 80px;
+    }
+
+    .hero-big-logo {
+      width: 400px;
+      height: auto;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+    }
+
+    .hero-text-group { text-align: left; }
+
+    .hero-title-cn {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem); 
+      font-weight: 800; 
+      margin-bottom: 0.2rem;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .hero-title-en {
+      font-size: clamp(0.9rem, 1.2vw, 1.2rem); 
+      font-weight: 300; 
+      opacity: 0.9; 
+      letter-spacing: 1px;
+    }
+
+    .calligraphy-text {
+      font-family: 'Ma Shan Zheng', cursive;
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      margin-top: 0rem;
+      color: rgba(255,255,255,0.98);
+      text-shadow: 0 5px 20px rgba(0,0,0,0.6); 
+      letter-spacing: 0.15em;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ========================================
+       2. 简介卡片
+    ======================================== */
+    .intro-container {
+      position: relative;
+      z-index: 10;
+      margin: 0 auto;
+      margin-top: -60px;
+      margin-bottom: 3rem;
+      width: 78%; 
+      max-width: 1600px;
+    }
+
+    .intro-card {
+      background: white;
+      border-radius: 10px;
+      padding: 3rem 5rem;
+      border: 5px solid var(--primary);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+
+    .intro-title {
+      text-align: center; font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 1rem;
+    }
+
+    .intro-divider {
+      width: 120px; height: 6px; background: var(--primary); margin: 0 auto 2.5rem auto; border-radius: 3px;
+    }
+
+    .intro-body p {
+      font-size: 1.6rem; 
+      line-height: 1.7;
+      color: #333; 
+      margin-bottom: 0rem;
+      text-indent: 2em; 
+      text-align: justify;
+    }
+
+    @media (max-width: 1200px) {
+      .intro-container { width: 85%; }
+      .intro-card { padding: 2.5rem 3rem; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-wrapper { height: 40vh; }
+      .intro-container { width: 92%; margin-top: -30px; } 
+      .intro-card { padding: 2rem 1.5rem; }
+      .calligraphy-text { font-size: 2.5rem; letter-spacing: 0.05em; }
+      .hero-header-group { flex-direction: column; text-align: center; }
+      .hero-text-group { text-align: center; }
+      .intro-body p { font-size: 1.2rem; }
+    }
+
+    /* ========================================
+       3. 导航栏样式 (汉堡动画更新)
+    ======================================== */
+    .navbar { 
+      position: fixed; width: 100%; top: 0; z-index: 1000; 
+      padding: 1.2rem 0; 
+      transition: all 0.5s ease;
+    }
+
+    .navbar.transparent { 
+      background: transparent; 
+      box-shadow: none; 
+      padding-top: 1.8rem; 
+    }
+
+    .navbar.solid { 
+      background: rgba(255, 255, 255, 0.98); 
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); 
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 0.8rem 0;
+    }
+
+    .navbar-container { 
+      width: 94%; 
+      max-width: 1800px; 
+      margin: 0 auto; 
+      display: flex; 
+      align-items: center; 
+    }
+    
+    .navbar.transparent .navbar-container {
+      justify-content: flex-end !important; 
+    }
+    .navbar.solid .navbar-container {
+      justify-content: space-between !important;
+    }
+
+    .navbar-brand, .school-logo { display: flex; align-items: center; gap: 1rem; text-decoration: none; transition: all 0.3s ease; }
+    
+    .navbar-logo { height: 45px; width: auto; transition: var(--transition); }
+    .school-logo { height: 38px; width: auto; margin-right: 1.5rem; transition: all 0.5s; }
+
+    .navbar-brand-text { display: flex; flex-direction: column; white-space: nowrap;}
+    .navbar-title { font-size: 1.2rem; font-weight: 700; font-family: 'Poppins', sans-serif; color: var(--dark); }
+    .navbar-subtitle { font-size: 0.75rem; opacity: 0.8; color: var(--gray-600); }
+    
+    .navbar-menu { 
+      display: flex; 
+      align-items: center; 
+      gap: 3.5rem; 
+      list-style: none; margin: 0; padding: 0; 
+    }
+    
+    .navbar-menu a { 
+      text-decoration: none; 
+      transition: all 0.3s ease; 
+      position: relative; 
+      padding: 0.5rem 0;
+      font-family: 'Poppins', sans-serif;
       white-space: nowrap;
     }
 
-    .lab-title-large {
-      font-size: 36px;
-      font-weight: bold;
-      line-height: 1.2;
+    .navbar.transparent .navbar-menu a { 
+      color: rgba(255, 255, 255, 0.65);
+      font-weight: 450;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+    } 
+    
+    .navbar.transparent .navbar-menu a:hover,
+    .navbar.transparent .navbar-menu a.active {
+      color: #ffffff;
+      opacity: 1;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
     }
 
-    .lab-title-small {
-      font-size: 20px;
-      margin-top: 10px;
-      line-height: 1.2;
+    .navbar.solid .navbar-menu a { 
+      color: var(--dark); 
+      font-weight: 450;
+      font-size: 18px;
+    }
+    
+    .navbar-menu a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: white; transition: width 0.3s; opacity: 0.8; }
+    .navbar.solid .navbar-menu a::after { background: var(--gradient-primary); height: 2px; }
+    .navbar-menu a:hover::after, .navbar-menu a.active::after { width: 100%; }
+    
+    /* 1. 汉堡按钮样式 (三条杠动画) */
+    .mobile-menu-btn { 
+      display: none; /* 电脑端隐藏 */
+      flex-direction: column; 
+      justify-content: space-around; 
+      width: 30px; 
+      height: 24px; 
+      background: transparent; 
+      border: none; 
+      cursor: pointer; 
+      padding: 0; 
+      z-index: 1001; 
+      transition: var(--transition); 
+    }
+    
+    .mobile-menu-btn span { 
+      width: 100%; 
+      height: 3px; 
+      background: var(--dark); /* 线条颜色 */
+      border-radius: 10px; 
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+      transform-origin: center; 
     }
 
-    /* 移动端响应式设计 */
-    @media screen and (max-width: 768px) {
-      .banner-content {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
+    /* 顶部透明时，线条是白色的 */
+    .navbar.transparent .mobile-menu-btn span { background: white; }
+    /* 变成白色导航栏或打开菜单时，线条变深色 */
+    .navbar.solid .mobile-menu-btn span,
+    .mobile-menu-btn.active span { background: var(--dark); }
+
+    /* 2. 按钮激活状态 (变成 X) */
+    .mobile-menu-btn.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
+    .mobile-menu-btn.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+    .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
+
+    /* 3. 遮罩层样式升级 */
+    .mobile-overlay { 
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+      background: rgba(0, 0, 0, 0.6); 
+      backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); 
+      opacity: 0; visibility: hidden; 
+      transition: all 0.3s ease; 
+      z-index: 998; 
+    }
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+    /* 4. 移动端菜单响应式样式 (断点保持 1400px) */
+    @media (max-width: 1400px) {
+      .navbar.transparent .navbar-container { justify-content: space-between; }
+      
+      /* 显示汉堡按钮 */
+      .mobile-menu-btn { display: flex; }
+      
+      /* 新版侧边栏样式 */
+      .navbar-menu { 
+        position: fixed; top: 0; right: 0; 
+        width: 320px; 
+        height: 100vh; 
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); 
+        flex-direction: column; 
+        align-items: stretch; 
+        padding: 6rem 2rem 2rem; 
+        gap: 0.8rem; 
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15); 
+        transform: translateX(100%); /* 默认藏在右边 */
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+        z-index: 999; 
+        overflow-y: auto; 
+        border-left: 1px solid rgba(0,0,0,0.05);
       }
 
-      .banner-logo {
-        height: 80px;
+      /* 菜单激活：滑出来 */
+      .navbar-menu.active { transform: translateX(0); }
+
+      /* 5. 列表项动画 (逐个飞入) */
+      .navbar-menu li { opacity: 0; transform: translateX(50px); list-style: none; }
+      .navbar-menu.active li { animation: slideInRight 0.5s ease forwards; }
+      .navbar-menu.active li:nth-child(1) { animation-delay: 0.1s; }
+      .navbar-menu.active li:nth-child(2) { animation-delay: 0.15s; }
+      .navbar-menu.active li:nth-child(3) { animation-delay: 0.2s; }
+      .navbar-menu.active li:nth-child(4) { animation-delay: 0.25s; }
+      .navbar-menu.active li:nth-child(5) { animation-delay: 0.3s; }
+      .navbar-menu.active li:nth-child(6) { animation-delay: 0.35s; }
+      .navbar-menu.active li:nth-child(7) { animation-delay: 0.4s; }
+
+      /* 6. 链接卡片样式 (白色卡片) */
+      .navbar-menu a { 
+        display: block; 
+        width: 100%; 
+        padding: 1rem 1.5rem; 
+        font-size: 1.1rem; 
+        font-weight: 600;
+        color: var(--dark) !important; 
+        border-radius: 12px; 
+        background: white; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); 
+        border: 1px solid var(--gray-100);
+        transition: all 0.3s ease; 
+        text-align: left;
       }
 
-      .banner-text {
-        text-align: center;
+      /* 链接悬停效果 */
+      .navbar-menu a:hover { 
+        background: var(--gradient-primary); 
+        color: white !important; 
+        transform: translateX(5px); 
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25); 
+        border-color: transparent;
       }
-
-      .lab-title-large {
-        font-size: 24px;
-        order: 2; /* 中文标题放在下面 */
-      }
-
-      .lab-title-small {
-        font-size: 18px;
-        margin-top: 0;
-        margin-bottom: 8px;
-        order: 1; /* NSAG放在上面 */
-      }
+      
+      /* 去掉原来的下划线 */
+      .navbar-menu a::after { display: none; }
     }
 
-    @media screen and (max-width: 480px) {
-      .banner {
-        height: 350px;
-      }
+    @keyframes slideInRight { to { opacity: 1; transform: translateX(0); } }
 
-      .banner-logo {
-        height: 60px;
-      }
+    /* 导航栏左侧控制代码 */
+    .navbar-container {
+      display: flex;
+      align-items: center;
+    }
 
-      .lab-title-large {
-        font-size: 20px;
-      }
+    .navbar-left-group {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem; 
+    }
 
-      .lab-title-small {
-        font-size: 16px;
-      }
+    .navbar.transparent .navbar-left-group {
+      display: none;
+    }
+
+    .navbar.solid .navbar-left-group {
+      display: flex;
+    }
+
+    .navbar.solid .school-logo {
+      border-right: none; 
+      padding-right: 0;   
+      height: 48px;       
+      width: auto;
+    }
+
+    .nav-divider {
+      height: 25px;
+      width: 1px;
+      background-color: #cbd5e1; 
+    }
+
+    .navbar.solid .navbar-logo {
+      height: 42px;       
     }
 
 
+    /* ========================================
+       4. 新闻动态样式
+    ======================================== */
+    .news-list { 
+      max-width: 1050px; 
+      margin: 0 auto; 
+      padding: 0; 
+      list-style: none; 
+    }
 
-    .navbar {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
+    .news-item {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 10px 30px;
-      transition: background-color 0.3s, color 0.3s;
-      /* 修复右侧抽屉没紧贴右边 */
-      box-sizing: border-box;
-      right: 0;
-      left: 0;
+      align-items: center; 
+      padding: 0.88rem 0; 
+      border-bottom: none; 
+      transition: var(--transition);
+      text-decoration: none; 
+      color: var(--dark); 
     }
 
-    .navbar.transparent {
-      background-color: transparent;
-      color: white;
+    @media (max-width: 992px) {
+      .news-item {
+        border-bottom: 1px solid var(--gray-200); 
+        padding: 1.2rem 0; 
+      }
     }
 
-    .navbar.solid {
-      background-color: white;
-      color: black;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar a {
-      margin-left: 20px;
-      text-decoration: none;
-      font-size: 16px;
+    .news-date {
+      flex-shrink: 0;
+      width: 115px; 
+      font-size: 1.45rem;
       font-weight: 500;
+      color: var(--danger); 
+      margin-right: 6rem;
+      letter-spacing: nowrap;
+    }
+
+    .news-title-link {
+      flex-grow: 1;
+      font-size: 1.55rem;
+      font-weight: 400; 
+      color: var(--dark);
+      text-decoration: none;
       transition: color 0.3s;
     }
 
-    .navbar.transparent a {
-      color: white;
+    .news-item:hover .news-title-link {
+      color: var(--primary); 
     }
-
-    .navbar.solid a {
-      color: black;
-    }
-
-    .navbar-left {
-      display: flex;
-      align-items: center;
-    }
-
-    .navbar-left img {
-      height: 40px;
-      margin-right: 10px;
-      transition: height 0.3s;
-    }
-
-    .navbar-text-group {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-      white-space: nowrap; /* 防止文字换行 */
-      overflow: hidden; /* 隐藏溢出内容 */
-    }
-
-    .navbar-title {
-      font-size: 20px;
-      font-weight: bold;
-      transition: font-size 0.3s, opacity 0.3s, visibility 0.3s;
-      white-space: nowrap; /* 防止标题换行 */
-    }
-
-    .navbar-subtitle {
-      font-size: 14px;
-      font-weight: normal;
-      margin-top: 2px;
-      transition: opacity 0.3s, visibility 0.3s;
-      white-space: nowrap; /* 防止副标题换行 */
-    }
-
-    .navbar.shrink .navbar-left img {
-      height: 30px;
-    }
-
-    .navbar.shrink .navbar-title {
-      font-size: 16px;
-    }
-
-    .hidden-title {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .show-title {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .navbar-logo {
-      transition: opacity 0.3s, visibility 0.3s;
-    }
-
-    .navbar-right {
-      display: flex;
-      align-items: center;
-    }
-
-    .navbar-right .menu-toggle {
-      display: none;
-      font-size: 24px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      margin-right: 10px;
-    }
-
-    .nav-links {
-      display: flex;
-    }
-
-    .nav-links a {
-      display: inline-block;
-      /* PC端取消hover背景和变色 */
-      transition: none !important;
-    }
-
-  @media screen and (max-width: 768px) {
-    .navbar {
-      padding: 10px 15px; /* 减少内边距 */
-    }
-
-    .navbar-left {
-      flex: 1;
-      min-width: 0; /* 允许收缩 */
-      overflow: hidden;
-    }
-
-    .navbar-left img {
-      height: 35px; /* 减小logo尺寸 */
-      margin-right: 8px;
-      flex-shrink: 0;
-    }
-
-    .navbar-text-group {
-      min-width: 0; /* 允许收缩 */
-      overflow: hidden;
-      flex: 1;
-    }
-
-    .navbar-title {
-      font-size: 16px; /* 减小字体 */
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    .navbar-subtitle {
-      font-size: 12px; /* 减小字体 */
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    .navbar-right .menu-toggle {
-      flex-shrink: 0; /* 防止按钮被压缩 */
-    }
-
-    .nav-links {
-      display: none;
-    }
-
-    .nav-links.show {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start; /* 左对齐 */
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 240px;
-      height: 100vh;
-      background-color: #fefefe;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-      padding: 60px 0 0 0; /* 顶部靠上，左边无 padding */
-      z-index: 999;
-      transition: transform 0.3s ease-in-out;
-      /* 确保紧贴右侧 */
-      margin: 0;
-      border: none;
-      box-sizing: border-box;
-    }
-
-    .nav-links a {
-      color: #333 !important;
-      cursor: pointer;
-      padding: 12px 20px; /* 添加左边内边距用于点击区域 */
-      width: 100%;
-      text-align: left;
-      border-radius: 4px;
+    
+    .btn-outline-primary-new {
+      padding: 0.45rem 1.5rem; 
+      border-radius: 50px;
+      text-decoration: none;
       font-weight: 600;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    /* 缩放时显示变色效果 */
-    .nav-links a:hover {
-      background-color: #58dcee;
-      color: rgb(121, 162, 203) !important;
-    }
-
-    .navbar-right .menu-toggle {
-      display: inline-block;
-    }
-  }
-
-  /* PC端取消默认 hover 变色 */
-  @media screen and (min-width: 769px) {
-    .nav-links a:hover {
-      color: inherit !important;
-      background-color: transparent !important;
-      cursor: pointer;
-    }
-  }
-
-    .research-image {
-      width: 100%;
-      max-width: 300px;
-      height: 200px;
-      padding-top: 15px;
-      margin: 0 auto;
-      display: block;
-      object-fit: cover; /* 保持图片比例 */
-    }
-
-    /* 研究方向卡片居中样式 */
-    .research-card-container {
-      text-align: center;
-      padding: 15px;
-      box-sizing: border-box;
-    }
-
-    .research-card-container h4 {
-      text-align: center;
-      margin: 15px 0 10px 0;
-      font-size: 1.4em; /* 调大标题字体 */
-      font-weight: 600;
-    }
-
-    .research-card-container h6 {
-      text-align: center;
-      line-height: 1.6;
-      margin: 0 0 15px 0;
-      font-size: 1.1em; /* 调大描述文字 */
-      font-weight: 400;
-    }
-
-    /* 研究方向响应式设计 */
-    @media screen and (max-width: 768px) {
-      .research-image {
-        height: 150px; /* 移动端减小高度 */
-        max-width: 250px;
-      }
-
-      .research-card-container {
-        padding: 10px;
-      }
-
-      .research-card-container h4 {
-        font-size: 1.3em; /* 移动端也调大 */
-        margin: 10px 0 8px 0;
-      }
-
-      .research-card-container h6 {
-        font-size: 1.0em; /* 移动端也调大 */
-        line-height: 1.4;
-      }
-
-      /* 确保卡片在小屏幕上正确显示 */
-      .w3-third {
-        width: 100% !important;
-        margin-bottom: 20px;
-      }
-
-      .w3-row-padding .w3-third {
-        padding: 0 8px;
-      }
-    }
-
-    @media screen and (max-width: 480px) {
-      .research-image {
-        height: 120px;
-        max-width: 200px;
-      }
-
-      .research-card-container {
-        padding: 8px;
-      }
-
-      .research-card-container h4 {
-        font-size: 1.2em; /* 小屏幕也适当调大 */
-      }
-
-      .research-card-container h6 {
-        font-size: 0.95em; /* 小屏幕也适当调大 */
-      }
-    }
-
-    .pmargin {
-      margin-left: 30px;
-      margin-right: 30px;
-    }
-
-    .anchor {
-      display: block;
-      content: "";
-      position: relative;
-      top: -80px;
-      visibility: hidden;
-    }
-
-    .custom-large-bold {
-      font-size: 36px !important;
-      font-weight: 900 !important;
-      line-height: 1.3 !important; /* 增加行高防止重叠 */
-      word-spacing: 0.1em; /* 增加字符间距 */
-    }
-
-    /* 响应式标题优化 */
-    @media screen and (max-width: 768px) {
-      .custom-large-bold {
-        font-size: 28px !important;
-        line-height: 1.4 !important;
-        padding: 12px !important;
-        word-break: break-word; /* 允许换行 */
-      }
-    }
-
-    @media screen and (max-width: 480px) {
-      .custom-large-bold {
-        font-size: 24px !important;
-        line-height: 1.5 !important;
-        padding: 10px !important;
-      }
-    }
-
-    /* 出版物容器 */
-    .publication-container {
-      margin: 0 30px;
-    }
-
-    /* 出版物条目 - 修改为垂直布局 */
-    .publication-item {
-      display: flex;
-      flex-direction: column; /* 改为垂直布局 */
-      margin-bottom: 0;
-      padding: 12px 0;
-      border-bottom: 1px solid #f0f0f0; /* 浅灰色分隔线 */
-    }
-
-    /* 内容行 */
-    .publication-content {
-      display: flex;
-      align-items: flex-start; /* 顶部对齐 */
-    }
-
-    /* 出版物类型标签 */
-    .publication-type {
       display: inline-flex;
       align-items: center;
-      padding: 1px 10px;
-      border-radius: 12px;
+      gap: 0; 
+      transition: var(--transition);
+      color: var(--dark);
+      border: 3px solid var(--primary); 
+      background: transparent;
+      font-size: 1.05rem;
+    }
+    .btn-outline-primary-new:hover {
       color: white;
-      font-weight: normal;
-      margin-right: 15px;
-      font-size: 14px;
-      height: 22px;
-      line-height: 1.2;
+      background: var(--primary);
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* ========================================
+       5. 代表性论文样式
+    ======================================== */
+    .publications-list { 
+      width: 100%;      
+      max-width: none;  
+      margin: 0 auto; 
+      font-family: 'Times New Roman', Times, serif; 
+    }
+    
+    .publication-item { 
+      background: transparent; 
+      border-radius: 0; 
+      box-shadow: none; 
+      border-left: none;
+      padding: 0.8rem 0; 
+      border-bottom: 1px solid #e4e6eb; 
+      display: block; 
+      text-align: left;
+      transition: var(--transition);
+    }
+    
+    .publication-content-wrapper {
+      display: inline;
+    }
+
+    .publication-header { 
+      display: inline; 
+      margin-right: 8px;
+    }
+    
+    .publication-badge { 
+      display: inline-block;
+      padding: 0.2rem 0.8rem; 
+      border-radius: 50px;    
+      font-size: 1.0rem; 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      letter-spacing: 0.5px; 
+      color: white;
+      vertical-align: middle;
+      margin-top: -2px; 
+    }
+    
+    .badge-pr { background: #8b5cf6; }  
+    .badge-ieee { background: #2563eb; } 
+    .badge-ijcai { background: #f59e0b; } 
+    
+    .publication-year { 
+      display: none; 
+    }
+    
+    .publication-title { 
+      display: inline; 
+      font-size: 1.45rem; 
+      line-height: 1.6; 
+      color: var(--dark); 
+      font-weight: 400; 
+    }
+    
+    .publication-title a { 
+      color: var(--dark); 
+      text-decoration: none; 
+      transition: color 0.2s;
+    }
+    .publication-title a:hover { 
+      color: var(--primary); 
+      text-decoration: none; 
+    }
+    
+    .pub-code-btn { 
+      display: inline-block;
+      margin-left: 10px;
+      font-family: sans-serif; 
+      font-size: 0.8rem;
+      color: var(--gray-600);
+      text-decoration: none;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    
+    .pub-code-btn:hover { 
+      color: var(--primary);
+      text-decoration: underline;
+      transform: none; 
+      box-shadow: none;
+      background: none;
+    }
+
+    .research-card-link { text-decoration: none; color: inherit; display: block; height: 100%; }
+    .research-card { 
+      background: white; 
+      border-radius: var(--card-radius); 
+      overflow: hidden; 
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); 
+      transition: var(--transition); 
+      height: 100%; 
+      position: relative; 
+      cursor: pointer; 
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .research-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-primary); transform: scaleX(0); transition: var(--transition); }
+    .research-card:hover::before { transform: scaleX(1); }
+    .research-card:hover { transform: translateY(-10px) rotateX(5deg); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); }
+    .research-image { width: 100%; height: 220px; object-fit: cover; transition: var(--transition); }
+    .research-card:hover .research-image { transform: scale(1.1); }
+    .research-image-container { overflow: hidden; position: relative; }
+    .research-content { padding: 2rem; text-align: center; }
+    
+    .research-title { 
+      font-size: 2rem; 
+      font-weight: 800; 
+      margin-bottom: 1.2rem; 
+      color: var(--dark); 
+    }
+
+    .research-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .research-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+
+    .research-list li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background-color: var(--dark); 
+      border-radius: 50%;
       flex-shrink: 0;
     }
+    
+    .research-tags { display: none; }
 
-    /* 出版物链接 */
-    .publication-link {
-      color: #0066cc;
-      text-decoration: none;
-      font-size: inherit;
-      line-height: 1.6;
-      flex: 1;
-      word-break: break-word; /* 允许单词换行 */
+    /* ========================================
+       FOOTER (iMoon Style Refined)
+    ======================================== */
+    footer { 
+      background: var(--primary); /* 使用主题蓝色对应 iMoon 的条状风格 */
+      color: white; 
+      padding: 4rem 0; 
     }
 
-    /* 不同类型颜色 (保持不变) */
-    .publication-type-BOOK { background-color: #795548; }
-    .publication-type-IEEE-TPAMI { background-color: #3f51b5; }
-    .publication-type-Engineering { background-color: #009688; }
-    .publication-type-CVPR { background-color: #e91e63; }
-    .publication-type-ICLR { background-color: #ff5722; }
+    /* 使用 Flexbox 实现 iMoon 的左右布局 */
+    .imoon-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: 1480px;
+      margin: 0 auto;
+    }
 
-    /* 响应式调整 */
-    @media (max-width: 600px) {
-      .publication-content {
+    .footer-left, .footer-right {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-right {
+      text-align: right; /* 右侧内容右对齐 */
+    }
+
+    /* 标题样式：加粗，大一号 */
+    .footer-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      color: white;
+    }
+
+    /* 普通文本样式：英文，稍小 */
+    .footer-text {
+      font-size: 1rem;
+      opacity: 0.9;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.9);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* 移动端适配：改为上下布局，居中 */
+    @media (max-width: 768px) {
+      .imoon-footer {
         flex-direction: column;
-        gap: 6px;
+        gap: 2rem;
+        text-align: center;
+        align-items: center;
       }
-      .publication-type {
-        margin-right: 0;
-        margin-bottom: 4px;
+      .footer-right {
+        text-align: center;
       }
     }
 
-        /* 页脚背景样式 */
-    .w3-footer-custom {
-      background-color: #f5f5f5 !important; /* 浅灰色背景 */
-      padding-top: 8px !important;         /* 上内边距 */
-      padding-bottom: 8px !important;      /* 下内边距 */
+    /* 去除旧的 Footer 样式 */
+    .footer-content, .footer-about, .footer-links, .footer-contact, .footer-bottom, .footer-social {
+      display: none;
     }
 
-    /* 页脚内容容器 */
-    .w3-footer-info {
-      max-width: 1100px;                  /* 最大宽度 */
-      margin: 0 auto;                     /* 水平居中 */
-      text-align: left;                   /* 文本左对齐 */
-      padding: 4px 8px !important;        /* 内边距（上下4px，左右8px） */
-    }
-
-    /* 页脚段落文本 */
-    .w3-footer-info p {
-      margin: 1px 0 !important;           /* 段落间距（上下1px） */
-      font-size: 14px;                    /* 字体大小 */
-      color: #444;                        /* 文字颜色 */
-    }
-
-    /* 页脚标题 */
-    .w3-footer-info h4 {
-      font-size: 16px;                    /* 标题字体大小 */
-      font-weight: bold;                  /* 加粗 */
-    }
-
-    /* 返回顶部按钮 */
-    .w3-footer-button {
-      margin: 4px !important;             /* 按钮外边距 */
-    }
-
-    /* 版权信息 */
-    .w3-footer-copyright {
-      margin: 4px 0 !important;           /* 上下边距 */
-    }
-
-    /* 更多论文按钮样式 */
-    .more-papers-container {
-      text-align: center;
-      margin: 40px 0;
-    }
-
-    .more-papers-btn {
-      display: inline-block;
-      padding: 12px 30px;
-      background: linear-gradient(45deg, #3498db, #2980b9);
-      color: white;
-      text-decoration: none;
-      border-radius: 25px;
-      font-size: 16px;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-    }
-
-    .more-papers-btn:hover {
-      background: linear-gradient(45deg, #2980b9, #1f5f8b);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
-      color: white;
-      text-decoration: none;
-    }
-
-    .more-papers-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
-    }
-
-
-
-
+    .page-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s, visibility 0.5s; }
+    .page-loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-spinner { width: 50px; height: 50px; border: 4px solid var(--gray-200); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-  <!-- 🔽 导航栏 -->
-  <div id="navbar" class="navbar transparent">
-    <div class="navbar-left">
-      <!-- 始终显示的 logo -->
-      <img src="fig/hdu_logo.png" alt="HDU" class="navbar-logo" /> 
-      <!-- 滚动后显示的 logo --> 
-      <img src="fig/logo.jpg" alt="Second Logo" class="navbar-logo hidden-title" id="secondaryLogo" style="height: 35px;" />
-    
-      <!-- 滚动后显示的文字 -->
-      <div class="navbar-text-group">
-        <span class="navbar-title hidden-title" id="navTitle">网络科学与认知智能实验室</span>
-        <span class="navbar-subtitle hidden-title" id="navSubTitle">Network Science</span>
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <nav class="navbar transparent" id="navbar">
+    <div class="navbar-container">
+      
+      <div class="navbar-left-group">
+        <img src="fig/hdu_logo.png" alt="HDU Logo" class="school-logo" />
+        
+        <div class="nav-divider"></div>
+
+        <a href="#hero" class="navbar-brand">
+          <img src="fig/logoz.png" alt="NSCI Logo" class="navbar-logo" />
+          <div class="navbar-brand-text">
+            <div class="navbar-title">网络科学与认知智能</div>
+            <div class="navbar-subtitle">NSCI - HDU</div>
+          </div>
+        </a>
       </div>
-    </div>
-    <div class="navbar-right">
-      <!-- ✅ 汉堡按钮 -->
-      <button class="menu-toggle" onclick="toggleMenu()">
-        <i class="fa fa-bars"></i>
+      <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="#hero">首页</a></li>
+        <li><a href="#about">关于我们</a></li>
+        <li><a href="#news">新闻动态</a></li>
+        <li><a href="#research">研究方向</a></li>
+        <li><a href="#publications">论文发表</a></li>
+        <li><a href="members_zh.html">团队成员</a></li>
+        <li><a href="index.html">ENGLISH</a></li>
+      </ul>
+
+      <button class="mobile-menu-btn" id="navbarToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-      <!-- ✅ 折叠菜单：右侧抽屉式 -->
-      <div class="nav-links" id="navMenu">
-        <a href="index_zh.html">首页</a>
-        <a href="members_zh.html">成员</a>
-        <a href="publication_zh.html">发表</a>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <div class="hero-wrapper" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content-new" data-aos="fade-in">
+      
+      <div class="hero-header-group">
+        <img src="fig/logo.png" alt="NSCI Logo" class="hero-big-logo" />
+        
+        <div class="hero-text-group">
+          <div class="hero-title-cn">网络科学与认知智能实验室</div>
+          <div class="hero-title-en">Network Science & Cognitive Intelligence Lab</div>
+        </div>
       </div>
-      <!-- EN 始终显示 -->
-      <a href="index.html">EN</a>
+      
+      <div class="calligraphy-text">
+        整 点 有 意 思 的 研 究
+      </div>
     </div>
   </div>
 
-  <!-- 🔽 顶部 Banner -->
-  <div class="banner">
-    <div class="banner-content">
-      <img src="fig/logo.jpg" class="banner-logo" alt="Lab Logo" />
-      <div class="banner-text">
-        <div class="lab-title-large">网络科学与认知智能实验室</div>
-        <div class="lab-title-small">NSAG: Network Science and Cognitive Intelligence Lab</div>
+  <div class="intro-container">
+    <div class="intro-card" data-aos="fade-up" data-aos-duration="1000">
+      <h2 class="intro-title">网络科学与认知智能实验室</h2>
+      <div class="intro-divider"></div>
+      
+      <div class="intro-body" id="about">
+        <p>
+          网络科学与认知智能实验室由焦鹏飞教授领导，专注于图神经网络及其广泛应用的研究。实验室致力于推进复杂图表征学习，
+          从拓扑、语义及时间维度全方位解析复杂网络结构；深入探索图模型可信安全，重点攻关模型的鲁棒泛化、安全防护及可信
+          增强技术；并面向智能化领域场景，将前沿图智能算法赋能于金融安全、系统安全及社会安全等关键应用领域。近年来，实
+          验室在人工智能和数据挖掘领域的顶级会议和期刊上发表了大量高影响力论文，包括 NeurIPS、ICLR、KDD、AAAI 和 IJC
+          AI，建立了良好的学术声誉。
+        </p>
       </div>
     </div>
   </div>
 
-  <!-- 🔽 页面主体 -->
-  <div class="w3-content" style="max-width: 1100px; margin-top: 50px; margin-bottom: 80px">
-    <div class="w3-center w3-padding-32">
-      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16 custom-large-bold">
-        网络科学与认知智能实验室
-      </span>
-    </div>
-    <div class="w3-row">
-      <div>
-        <h4>
-          网络科学与认知智能实验室由焦鹏飞教授创立并担任负责人，专注于图神经网络及其多领域应用。
-          实验室致力于探索图表示学习、异构图建模、动态图分析等前沿方向，推动智能算法在社交网络、
-          推荐系统、生物信息学等场景中的创新应用。近年来，实验室在人工智能、数据挖掘领域的国际顶级会议
-          和期刊（如 NeurIPS、ICLR、KDD、AAAI、IJCAI 等）上发表了多篇高水平论文，取得了广泛的学术影响力。
-        </h4>
+  <section id="research" class="section">
+    <div class="container-custom">
+      <h2 class="section-title" data-aos="fade-up">研究方向</h2>
+
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+          <a href="research-complex-graph_zh.html" class="research-card-link">
+            <div class="research-card">
+              <div class="research-image-container">
+                <img src="fig/GNN.jpg" alt="复杂图表征学习" class="research-image" />
+              </div>
+              <div class="research-content">
+                <h3 class="research-title">复杂图表征学习</h3>
+                <ul class="research-list">
+                  <li>拓扑维度</li>
+                  <li>语义维度</li>
+                  <li>时间维度</li>
+                </ul>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <a href="research-graph-security_zh.html" class="research-card-link">
+            <div class="research-card">
+              <div class="research-image-container">
+                <img src="fig/tml.jpg" alt="图模型可信安全" class="research-image" />
+              </div>
+              <div class="research-content">
+                <h3 class="research-title">图模型可信安全</h3>
+                <ul class="research-list">
+                  <li>鲁棒泛化</li>
+                  <li>安全防护</li>
+                  <li>可信增强</li>
+                </ul>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <a href="research-graph-applications_zh.html" class="research-card-link">
+            <div class="research-card">
+              <div class="research-image-container">
+                <img src="fig/cps.jpg" alt="图智能应用" class="research-image" />
+              </div>
+              <div class="research-content">
+                <h3 class="research-title">智能化领域场景</h3>
+                <ul class="research-list">
+                  <li>金融安全</li>
+                  <li>系统安全</li>
+                  <li>社会安全</li>
+                </ul>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- 🔽 研究方向 -->
-    <div class="w3-row-padding" id="researchInterest">
-      <div class="w3-center w3-padding-32">
-        <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">研究方向</span>
-      </div>
-      <div class="w3-third">
-        <div class="w3-card-4">
-          <div class="w3-container research-card-container">
-            <img class="research-image" src="fig/GNN.jpg" alt="GNN" />
-            <h4>图神经网络</h4>
-            <h6>异质图<br />动态图<br />社交网络</h6>
+  <section id="news" class="section">
+    <div class="container-custom">
+      <h2 class="section-title" data-aos="fade-up">新闻动态</h2>
+
+      <div class="news-list">
+        
+        <a href="https://ieeexplore.ieee.org/abstract/document/11123717/" target="_blank" class="news-item" data-aos="fade-up" data-aos-delay="0">
+          <div class="news-date">2025-03</div>
+          <div class="news-title-link">
+            论文 Interactive Graph Learning for Multilevel Network Alignment 被 IEEE TNNLS 2025 录用
           </div>
-        </div>
-      </div>
-     <div class="w3-third">
-        <div class="w3-card-4">
-          <div class="w3-container research-card-container">
-            <img class="research-image" src="fig/tml.jpg" alt="AI Security" />
-            <h4>人工智能安全</h4>
-            <h6>可信AI<br />大数据隐私<br />软件脆弱性发现</h6>
+        </a>
+        
+        <a href="https://arxiv.org/abs/2507.07405" target="_blank" class="news-item" data-aos="fade-up" data-aos-delay="50">
+          <div class="news-date">2025-02</div>
+          <div class="news-title-link">
+            论文 HGMP: Heterogeneous Graph Multi-Task Prompt Learning 被 IJCAI 2025 录用
           </div>
-        </div>
-      </div>
-      <div class="w3-third">
-        <div class="w3-card-4">
-          <div class="w3-container research-card-container">
-            <img class="research-image" src="fig/cps.jpg" alt="CPS/IoT" />
-            <h4>CPS/IoT安全</h4>
-            <h6>安全关键系统中的安全性<br />物联网中的网络弹性<br />CPS 传感器模拟攻击</h6>
+        </a>
+
+        <a href="https://www.sciencedirect.com/science/article/pii/S0031320325007137" target="_blank" class="news-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="news-date">2025-02</div>
+          <div class="news-title-link">
+            论文 TGFormer: Towards temporal graph transformer with auto-correlation mechanism 被 Pattern Recognition 2025 录用
           </div>
-        </div>
+        </a>
+
+        <a href="https://ieeexplore.ieee.org/abstract/document/11061250/" target="_blank" class="news-item" data-aos="fade-up" data-aos-delay="150">
+          <div class="news-date">2025-01</div>
+          <div class="news-title-link">
+            论文 DVGMAE: Self-Supervised Dynamic Variational Graph Masked Autoencoder 被 IEEE TNNLS 2025 录用
+          </div>
+        </a>
+
+        <a href="https://arxiv.org/abs/2506.17312" target="_blank" class="news-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="news-date">2025-01</div>
+          <div class="news-title-link">
+            论文 Heterogeneous Temporal Hypergraph Neural Network 被 IJCAI 2025 录用
+          </div>
+        </a>
+
+        <a href="https://arxiv.org/abs/2506.07428" target="_blank" class="news-item" data-aos="fade-up" data-aos-delay="250">
+          <div class="news-date">2025-01</div>
+          <div class="news-title-link">
+            论文 HeTa: Relation-wise Heterogeneous Graph Foundation Attack Model 被 IJCAI 2025 录用
+          </div>
+        </a>
+      </div>
+
+      <div class="text-center mt-5" data-aos="fade-up">
+        <a href="news_zh.html" class="btn-outline-primary-new">
+           更多新闻
+        </a>
       </div>
     </div>
+  </section>
 
-    <!-- 🔽 代表性论文 -->
-    <div class="w3-row-padding">
-      <div class="w3-center w3-padding-32">
-        <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">代表性论文</span>
+  <section id="publications" class="section">
+    <div class="container-custom">
+      <h2 class="section-title" data-aos="fade-up">代表性论文</h2>
+
+      <div class="publications-list">
+          
+          <div class="publication-item" data-aos="fade-up" data-aos-delay="0">
+            <div class="publication-content-wrapper">
+              <div class="publication-header">
+                <span class="publication-badge badge-ieee">IEEE TNNLS</span>
+                <span class="publication-year">2025</span> </div>
+              <div class="publication-title">
+                <a href="https://ieeexplore.ieee.org/abstract/document/11123717/" target="_blank">
+                  Jiao P, Liu Y, Wang Y, et al. Interactive Graph Learning for Multilevel Network Alignment. IEEE Transactions on Neural Networks and Learning Systems, 2025
+                </a>
+              </div>
+            </div>
+            <a href="https://ieeexplore.ieee.org/abstract/document/11123717/" class="pub-code-btn" target="_blank">
+              [Code]
+            </a>
+          </div>
+
+          <div class="publication-item" data-aos="fade-up" data-aos-delay="50">
+            <div class="publication-content-wrapper">
+              <div class="publication-header">
+                <span class="publication-badge badge-ijcai">IJCAI</span>
+                <span class="publication-year">2025</span>
+              </div>
+              <div class="publication-title">
+                <a href="https://arxiv.org/abs/2507.07405" target="_blank">
+                  Jiao P, Ni J, Jin D, et al. HGMP: Heterogeneous Graph Multi-Task Prompt Learning. IJCAI 2025
+                </a>
+              </div>
+            </div>
+            <a href="https://arxiv.org/abs/2507.07405" class="pub-code-btn" target="_blank">
+              [Code]
+            </a>
+          </div>
+
+          <div class="publication-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="publication-content-wrapper">
+              <div class="publication-header">
+                <span class="publication-badge badge-pr">PR</span>
+                <span class="publication-year">2025</span>
+              </div>
+              <div class="publication-title">
+                <a href="https://www.sciencedirect.com/science/article/pii/S0031320325007137" target="_blank">
+                  Chen H, Jiao P, Du M, et al. TGFormer: Towards temporal graph transformer with auto-correlation mechanism. Pattern Recognition, 2025
+                </a>
+              </div>
+            </div>
+            <a href="https://github.com/cspjiao/TGFormer" class="pub-code-btn" target="_blank">
+              [Code]
+            </a>
+          </div>
+
+          <div class="publication-item" data-aos="fade-up" data-aos-delay="150">
+            <div class="publication-content-wrapper">
+              <div class="publication-header">
+                <span class="publication-badge badge-ieee">IEEE TNNLS</span>
+                <span class="publication-year">2025</span>
+              </div>
+              <div class="publication-title">
+                <a href="https://ieeexplore.ieee.org/abstract/document/11061250/" target="_blank">
+                  Gao M, Zhang X, Jiao P, et al. DVGMAE: Self-Supervised Dynamic Variational Graph Masked Autoencoder. IEEE Transactions on Neural Networks and Learning Systems, 2025
+                </a>
+              </div>
+            </div>
+            <a href="https://ieeexplore.ieee.org/abstract/document/11061250/" class="pub-code-btn" target="_blank">
+              [Code]
+            </a>
+          </div>
+
+          <div class="publication-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="publication-content-wrapper">
+              <div class="publication-header">
+                <span class="publication-badge badge-ijcai">IJCAI</span>
+                <span class="publication-year">2025</span>
+              </div>
+              <div class="publication-title">
+                <a href="https://arxiv.org/abs/2506.17312" target="_blank">
+                  Liu H, Jiao P, Gao M, et al. Heterogeneous Temporal Hypergraph Neural Network. IJCAI 2025
+                </a>
+              </div>
+            </div>
+            <a href="https://arxiv.org/abs/2506.17312" class="pub-code-btn" target="_blank">
+              [Code]
+            </a>
+          </div>
+
+          <div class="publication-item" data-aos="fade-up" data-aos-delay="250">
+            <div class="publication-content-wrapper">
+              <div class="publication-header">
+                <span class="publication-badge badge-ijcai">IJCAI</span>
+                <span class="publication-year">2025</span>
+              </div>
+              <div class="publication-title">
+                <a href="https://arxiv.org/abs/2506.07428" target="_blank">
+                  Wang Y, Chen Z, Jiao P, et al. HeTa: Relation-wise Heterogeneous Graph Foundation Attack Model. IJCAI 2025
+                </a>
+              </div>
+            </div>
+            <a href="https://arxiv.org/abs/2506.07428" class="pub-code-btn" target="_blank">
+              [Code]
+            </a>
+          </div>
       </div>
-      <div class="publication-container">
-        <div class="publication-item">
-          <div class="publication-content">
-            <span class="publication-type publication-type-IEEE-TPAMI">PR</span>
-            <a href="publication_details.html?id=5" class="publication-link">Chen H, Jiao P, Du M, et al. TGFormer: Towards temporal graph transformer with auto-correlation mechanism. PR, 2026</a>
-          </div>
-        </div>
-        <div class="publication-item">
-          <div class="publication-content">
-            <span class="publication-type publication-type-IEEE-TPAMI">FR</span>
-            <a href="publication_details.html?id=6" class="publication-link">Jiao P, Yu K, Bao Q, et al. Graph contrastive learning with node-level accurate difference. FR, 2025</a>
-          </div>
-        </div>
-        <div class="publication-item">
-          <div class="publication-content">
-            <span class="publication-type publication-type-Engineering">IEEE TNSE</span>
-            <a href="publication_details.html?id=7" class="publication-link">Jiao P, Song W, Wang Y, et al. Cascade Popularity Prediction: A Multi-View Learning Approach With Socialized Modeling. IEEE TNSE, 2025</a>
-          </div>
-        </div>
-        <div class="publication-item">
-          <div class="publication-content">
-            <span class="publication-type publication-type-CVPR">AAAI</span>
-            <a href="publication_details.html?id=8" class="publication-link">Liu Z, Gao M, Jiao P. Gcad: Anomaly detection in multivariate time series from the perspective of granger causality. AAAI, 2025</a>
-          </div>
-        </div>
-        <div class="publication-item">
-          <div class="publication-content">
-            <span class="publication-type publication-type-CVPR">IEEE TWC</span>
-            <a href="publication_details.html?id=9" class="publication-link">Tang H, Zhang J, Zhao Z, et al. Joint Optimization based on Two-phase GNN in RIS-and DF-assisted MISO Systems with Fine-grained Rate Demands. IEEE TWC, 2025</a>
-          </div>
-        </div>
-        <div class="publication-item">
-          <div class="publication-content">
-            <span class="publication-type publication-type-ICLR">AAAI</span>
-            <a href="publication_details.html?id=10" class="publication-link">Ao T, Yu Y, Wang Y, et al. Lightprof: A lightweight reasoning framework for large language model on knowledge graph. AAAI, 2025</a>
-          </div>
-        </div>
-     </div>
+
+      <div class="text-center mt-5" data-aos="fade-up">
+        <a href="publication_zh.html" class="btn-primary-gradient">
+          <i class="fas fa-book-open"></i> 更多论文
+        </a>
+      </div>
     </div>
+  </section>
 
-    <!-- 更多论文按钮 -->
-    <div class="more-papers-container">
-      <a href="publication_zh.html" class="more-papers-btn">更多论文</a>
+  <footer>
+    <div class="container-custom">
+      <div class="imoon-footer">
+        
+        <div class="footer-left">
+          <h3 class="footer-title">NSCI: Network Science & Cognitive Intelligence</h3>
+          <div class="footer-text">School of Cyberspace Security, Hangzhou Dianzi University</div>
+          <div class="footer-text">Hangzhou 310018, China</div>
+        </div>
+
+        <div class="footer-right">
+          <h3 class="footer-title">Copyright © 2022-2025</h3>
+          <div class="footer-text">All Rights Reserved.</div>
+        </div>
+
+      </div>
     </div>
+  </footer>
 
-    
-  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-<!-- Footer -->
-<footer class="w3-container w3-footer-custom w3-center">
-  <div class="w3-footer-info">
-    <h4>网络科学与认知智能实验室</h4>
-    <p><i class="fa fa-map-marker w3-margin-right"></i> 中国浙江省杭州市钱塘区杭州电子科技大学</p>
-    <p><i class="fa fa-envelope w3-margin-right"></i> pjiao@hdu.edu.cn</p>
-  </div>
-  <a href="#" class="w3-button w3-black w3-footer-button">
-    <i class="fa fa-arrow-up w3-margin-right"></i>返回顶部
-  </a>
-  <p class="w3-footer-copyright">© 2024 网络科学与认知智能实验室. 保留所有权利.</p>
-</footer>
-
-   <!-- 🔽 滚动控制与菜单控制脚本 -->
   <script>
-    window.addEventListener("scroll", function () {
-      const navbar = document.getElementById("navbar");
-      const navTitle = document.getElementById("navTitle");
-      const navSubTitle = document.getElementById("navSubTitle");
-      const secondaryLogo = document.getElementById("secondaryLogo");
+    AOS.init({ duration: 800, once: true, offset: 100 });
+    
+    // Page Loader
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('pageLoader');
+      setTimeout(() => { loader.classList.add('hidden'); }, 500);
+    });
 
+    // Navbar
+    const navbar = document.getElementById('navbar');
+    
+    window.addEventListener('scroll', function() {
       if (window.scrollY > 100) {
-        navbar.classList.remove("transparent");
-        navbar.classList.add("solid", "shrink");
-        navTitle.classList.remove("hidden-title");
-        navTitle.classList.add("show-title");
-        navSubTitle.classList.remove("hidden-title");
-        navSubTitle.classList.add("show-title");
-        secondaryLogo.classList.remove("hidden-title");
-        secondaryLogo.classList.add("show-title");
+        navbar.classList.remove('transparent');
+        navbar.classList.add('solid');
       } else {
-        navbar.classList.add("transparent");
-        navbar.classList.remove("solid", "shrink");
-        navTitle.classList.add("hidden-title");
-        navTitle.classList.remove("show-title");
-        navSubTitle.classList.add("hidden-title");
-        navSubTitle.classList.remove("show-title");
-        secondaryLogo.classList.add("hidden-title");
-        secondaryLogo.classList.remove("show-title");
+        navbar.classList.add('transparent');
+        navbar.classList.remove('solid');
       }
     });
 
-    // ✅ 改进的菜单切换函数
+    // 汉堡按钮逻辑
+    const toggle = document.getElementById('navbarToggle');
+    const menu = document.getElementById('navbarMenu');
+    const overlay = document.getElementById('mobileOverlay');
+    const menuLinks = menu.querySelectorAll('a'); 
+
     function toggleMenu() {
-      const menu = document.getElementById("navMenu");
-      menu.classList.toggle("show");
+      toggle.classList.toggle('active'); 
+      menu.classList.toggle('active');   
+      overlay.classList.toggle('active'); 
+      
+      if (menu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
     }
+
+    function closeMenu() {
+      toggle.classList.remove('active');
+      menu.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    menuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1400) {
+        closeMenu();
+      }
+    });
   </script>
 </body>
 </html>

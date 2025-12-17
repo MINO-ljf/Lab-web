@@ -1,1148 +1,788 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>NSAG - HDU</title>
-  <link rel="icon" type="image/jpeg" href="fig/logo.jpg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Publications - Network Science & Cognitive Intelligence Lab at Hangzhou Dianzi University" />
+  <title>Publications | NSCI - HDU</title>
+  <link rel="icon" type="image/jpeg" href="fig/logot.png" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
   <style>
-    html, body, h1, h2, h3, h4, h5 {
-      font-family: "Lato", sans-serif;
+    /* ========================================
+       🎨 GLOBAL STYLES (Synced with index.html)
+    ======================================== */
+    :root {
+      --primary: #2563eb;
+      --secondary: #8b5cf6;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --dark: #0f172a;
+      --light: #ffffff;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-600: #475569;
+      --gray-900: #0f172a;
+      --gradient-primary: linear-gradient(45deg, #2563eb, #06b6d4);
+      --section-padding: 100px 0;
+      --card-radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Modern Publications Page Styles */
-    .publications-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    
+    body { 
+      font-family: 'Inter', sans-serif; 
+      color: var(--dark); 
+      background: #ffffff; 
+      line-height: 1.6; 
+      overflow-x: hidden;
+      /* Padding for fixed navbar */
+      padding-top: 100px; 
+    }
+    
+    h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-height: 1.2; }
+    .container-custom { max-width: 1480px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ========================================
+       3. NAVBAR STYLES (Migrated & Adapted)
+    ======================================== */
+    .navbar { 
+      position: fixed; width: 100%; top: 0; z-index: 1000; 
+      padding: 0.8rem 0; /* Solid state default */
+      transition: all 0.5s ease;
+      background: rgba(255, 255, 255, 0.98); 
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); 
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    .page-header {
-      text-align: center;
-      margin-bottom: 40px;
+    .navbar-container { 
+      width: 94%; 
+      max-width: 1800px; 
+      margin: 0 auto; 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between !important;
     }
 
-    .page-title {
-      font-size: 42px;
-      font-weight: 600;
-      color: #2c3e50;
-      margin-bottom: 15px;
-      letter-spacing: 1px;
-    }
+    .navbar-left-group { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-divider { height: 25px; width: 1px; background-color: #cbd5e1; }
+    
+    .navbar-brand, .school-logo { display: flex; align-items: center; gap: 1rem; text-decoration: none; transition: all 0.3s ease; }
+    .navbar-logo { height: 42px; width: auto; transition: var(--transition); }
+    .school-logo { height: 48px; width: auto; padding-right: 0; }
 
-    .page-subtitle {
-      font-size: 20px;
-      color: #7f8c8d;
-      font-weight: 400;
+    .navbar-brand-text { display: flex; flex-direction: column; white-space: nowrap;}
+    .navbar-title { font-size: 1.2rem; font-weight: 700; font-family: 'Poppins', sans-serif; color: var(--dark); }
+    .navbar-subtitle { font-size: 0.75rem; opacity: 0.8; color: var(--gray-600); }
+    
+    .navbar-menu { 
+      display: flex; align-items: center; gap: 3.5rem; 
+      list-style: none; margin: 0; padding: 0; 
     }
-
-    /* Search and Filter Section */
-    .search-filter-section {
-      background: #f8f9fa;
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 40px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .search-container {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .search-box {
-      flex: 1;
-      min-width: 300px;
-      position: relative;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 12px 45px 12px 15px;
-      border: 2px solid #e9ecef;
-      border-radius: 8px;
-      font-size: 16px;
-      transition: border-color 0.3s ease;
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: #3498db;
-    }
-
-    .search-icon {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #95a5a6;
-    }
-
-    .filter-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      padding: 10px 18px;
-      border: 2px solid #dee2e6;
-      background: white;
-      border-radius: 20px;
-      font-size: 15px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      color: #6c757d;
-    }
-
-    .filter-btn:hover, .filter-btn.active {
-      background: #3498db;
-      border-color: #3498db;
-      color: white;
-    }
-
-    .stats-info {
-      text-align: center;
-      color: #6c757d;
-      font-size: 16px;
-      font-weight: 500;
-      margin-top: 15px;
-    }
-
-    /* Publications List */
-    .publications-list {
-      margin-bottom: 40px;
-    }
-
-    .year-section {
-      margin-bottom: 50px;
-    }
-
-    .year-header {
-      font-size: 32px;
-      font-weight: 700;
-      color: #34495e;
-      margin-bottom: 25px;
-      padding-bottom: 10px;
-      border-bottom: 3px solid #3498db;
-      position: relative;
-    }
-
-    .year-header::after {
-      content: '';
-      position: absolute;
-      bottom: -3px;
-      left: 0;
-      width: 80px;
-      height: 3px;
-      background: #e74c3c;
-    }
-
-    .year-count {
+    
+    .navbar-menu a { 
+      text-decoration: none; 
+      transition: all 0.3s ease; 
+      position: relative; 
+      padding: 0.5rem 0;
+      font-family: 'Poppins', sans-serif;
+      white-space: nowrap;
+      color: var(--dark); 
+      font-weight: 450;
       font-size: 18px;
-      color: #95a5a6;
-      font-weight: 500;
-      margin-left: 15px;
+    }
+    
+    .navbar-menu a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gradient-primary); transition: width 0.3s; opacity: 0.8; }
+    .navbar-menu a:hover::after, .navbar-menu a.active::after { width: 100%; }
+    .navbar-menu a.active { color: var(--primary); font-weight: 600; }
+
+    /* Mobile Menu Btn */
+    .mobile-menu-btn { 
+      display: none; flex-direction: column; justify-content: space-around; 
+      width: 30px; height: 24px; background: transparent; border: none; cursor: pointer; padding: 0; z-index: 1001; transition: var(--transition); 
+    }
+    .mobile-menu-btn span { width: 100%; height: 3px; background: var(--dark); border-radius: 10px; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-origin: center; }
+    .mobile-menu-btn.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
+    .mobile-menu-btn.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+    .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
+
+    .mobile-overlay { 
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+      background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); 
+      opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 998; 
+    }
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+    @media (max-width: 1400px) {
+      .mobile-menu-btn { display: flex; }
+      .navbar-menu { 
+        position: fixed; top: 0; right: 0; width: 320px; height: 100vh; 
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); 
+        flex-direction: column; align-items: stretch; padding: 6rem 2rem 2rem; gap: 0.8rem; 
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15); transform: translateX(100%); 
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 999; overflow-y: auto; 
+        border-left: 1px solid rgba(0,0,0,0.05);
+      }
+      .navbar-menu.active { transform: translateX(0); }
+      .navbar-menu li { opacity: 0; transform: translateX(50px); list-style: none; }
+      .navbar-menu.active li { animation: slideInRight 0.5s ease forwards; }
+      .navbar-menu.active li:nth-child(1) { animation-delay: 0.1s; }
+      
+      .navbar-menu a { 
+        display: block; width: 100%; padding: 1rem 1.5rem; font-size: 1.1rem; font-weight: 600;
+        color: var(--dark) !important; border-radius: 12px; background: white; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); border: 1px solid var(--gray-100);
+        transition: all 0.3s ease; text-align: left;
+      }
+      .navbar-menu a:hover, .navbar-menu a.active { 
+        background: var(--gradient-primary); color: white !important; 
+        transform: translateX(5px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25); border-color: transparent;
+      }
+      .navbar-menu a::after { display: none; }
+      .navbar-left-group { display: flex; } 
+    }
+    @keyframes slideInRight { to { opacity: 1; transform: translateX(0); } }
+    @media (max-width: 480px) {
+        .navbar-title { display: none; } 
+        .navbar-subtitle { display: none; }
+    }
+
+    /* ========================================
+       📄 NEW PUBLICATIONS STYLES (Original)
+    ======================================== */
+    .publications-container {
+      max-width: 1500px; 
+      margin: 0 auto;
+      padding: 40px 20px; 
     }
 
     .publication-item {
-      background: white;
-      border-radius: 10px;
-      padding: 25px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-      border-left: 4px solid transparent;
-      transition: all 0.3s ease;
-      position: relative;
+      padding: 18px 0;
+      border-bottom: 1px solid #eeeeee; 
+      display: flex;
+      flex-direction: column;
+      gap: 3px; 
+      text-align: left;
     }
+    
+    .publication-item:hover { transform: none; box-shadow: none; background: transparent; }
 
-    .publication-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 25px rgba(0,0,0,0.12);
-    }
-
-    .publication-item.journal {
-      border-left-color: #27ae60;
-    }
-
-    .publication-item.conference {
-      border-left-color: #3498db;
-    }
-
-    .publication-item.book {
-      border-left-color: #f39c12;
+    .pub-row-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 2px;
     }
 
     .pub-type-badge {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      padding: 6px 12px;
-      border-radius: 12px;
+      display: inline-block;
+      padding: 5px 10px; 
       font-size: 12px;
       font-weight: 700;
+      color: #fff;
+      border-radius: 50rem; 
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      line-height: 1.2;
+      white-space: nowrap;
     }
 
-    .pub-type-badge.journal {
-      background: #d5f4e6;
-      color: #27ae60;
-    }
+    .pub-type-badge.journal { background-color: #007bff; } 
+    .pub-type-badge.conference { background-color: #e83e8c; } 
+    .pub-type-badge.book { background-color: #6f42c1; } 
+    .pub-type-badge.arxiv { background-color: #6c757d; } 
 
-    .pub-type-badge.conference {
-      background: #d6eaf8;
-      color: #3498db;
-    }
-
-    .pub-type-badge.book {
-      background: #fdeaa7;
-      color: #f39c12;
+    .pub-authors {
+      font-size: 19px;
+      color: #495057; 
+      margin: 0;
+      line-height: 1.4;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     .pub-title {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
-      color: #2c3e50;
-      margin-bottom: 12px;
-      line-height: 1.4;
-      cursor: pointer;
-      transition: color 0.3s ease;
+      color: #000; 
+      margin: 2px 0;
+      line-height: 1.35;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    .pub-title:hover {
-      color: #3498db;
-    }
-
-    .pub-authors {
-      font-size: 16px;
-      color: #7f8c8d;
-      margin-bottom: 8px;
-      line-height: 1.4;
+    .pub-venue-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .pub-venue {
-      font-size: 16px;
-      color: #8e44ad;
-      font-weight: 600;
-      margin-bottom: 12px;
+      font-size: 18px;
+      color: #6c757d;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
+    
+    .pub-venue strong { color: #343a40; }
 
-    .pub-meta {
-      display: flex;
-      gap: 15px;
-      font-size: 14px;
-      color: #95a5a6;
-      font-weight: 500;
-      flex-wrap: wrap;
-    }
-
-    .pub-meta-item {
-      display: flex;
+    .clean-code-btn {
+      display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
+      padding: 1px 6px;
+      background-color: #f8f9fa;
+      color: #6c757d;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid #dee2e6;
+      margin-left: auto; 
+    }
+    .clean-code-btn:hover {
+      background-color: #e9ecef;
+      color: #212529;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .search-container {
-        flex-direction: column;
-      }
-
-      .search-box {
-        min-width: auto;
-      }
-
-      .filter-buttons {
-        justify-content: center;
-      }
-
-      .publication-item {
-        padding: 20px;
-      }
-
-      .pub-type-badge {
-        position: static;
-        margin-bottom: 10px;
-        display: inline-block;
-      }
+    @media (max-width: 992px) {
+        .pub-row-meta { flex-wrap: wrap; gap: 6px; }
     }
 
-    .w3-padding-section {
-      padding-top: 32px;
-      padding-bottom: 32px;
+    /* ========================================
+       FOOTER (iMoon Style Refined)
+    ======================================== */
+    footer { 
+      background: var(--primary); 
+      color: white; 
+      padding: 4rem 0; 
+      margin-top: 4rem;
     }
 
-    .navbar-bg {
-      background-color: #e6f2ff !important;
-    }
-
-    /* 页脚背景样式 */
-    .w3-footer-custom {
-      background-color: #f5f5f5 !important; /* 浅灰色背景 */
-      padding-top: 8px !important;         /* 上内边距 */
-      padding-bottom: 8px !important;      /* 下内边距 */
-    }
-
-    /* 页脚内容容器 */
-    .w3-footer-info {
-      max-width: 1100px;                  /* 最大宽度 */
-      margin: 0 auto;                     /* 水平居中 */
-      text-align: left;                   /* 文本左对齐 */
-      padding: 4px 8px !important;        /* 内边距（上下4px，左右8px） */
-    }
-
-    /* 页脚段落文本 */
-    .w3-footer-info p {
-      margin: 1px 0 !important;           /* 段落间距（上下1px） */
-      font-size: 14px;                    /* 字体大小 */
-      color: #444;                        /* 文字颜色 */
-    }
-
-    /* 页脚标题 */
-    .w3-footer-info h4 {
-      font-size: 16px;                    /* 标题字体大小 */
-      font-weight: bold;                  /* 加粗 */
-    }
-
-    /* 返回顶部按钮 */
-    .w3-footer-button {
-      margin: 4px !important;             /* 按钮外边距 */
-    }
-
-    /* 版权信息 */
-    .w3-footer-copyright {
-      margin: 4px 0 !important;           /* 上下边距 */
-    }
-
-    .w3-content {
-      max-width: 1060px;
+    .imoon-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: 1480px;
       margin: 0 auto;
     }
 
-    .pub-container {
-      margin-top: 20px;
+    .footer-left, .footer-right {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
+    .footer-right { text-align: right; }
 
-
-    /* Navbar styles */
-    .navbar-container {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+    .footer-title {
+      font-size: 1.25rem; font-weight: 700; margin-bottom: 0.2rem; color: white;
     }
 
-    .w3-bar-item.w3-button:hover {
-      background-color: rgba(241, 241, 241, 0.8) !important;
+    .footer-text {
+      font-size: 1rem; opacity: 0.9; font-weight: 400; color: rgba(255, 255, 255, 0.9); font-family: 'Inter', sans-serif;
     }
 
-    #mobileNav {
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-      border-top: 1px solid rgba(0,0,0,0.05);
+    @media (max-width: 768px) {
+      .imoon-footer { flex-direction: column; gap: 2rem; text-align: center; align-items: center; }
+      .footer-right { text-align: center; }
     }
 
-    /* Responsive navbar control */
-    @media screen and (max-width: 900px) {
-      .navbar-desktop-full {
-        display: none !important;
-      }
-      .navbar-desktop-menu {
-        display: none !important;
-      }
-      .navbar-mobile {
-        display: block !important;
-      }
-      .navbar-mobile-menu {
-        display: flex !important;
-      }
-    }
-
-    @media screen and (min-width: 901px) {
-      .navbar-desktop-full {
-        display: flex !important;
-      }
-      .navbar-desktop-menu {
-        display: flex !important;
-      }
-      .navbar-mobile {
-        display: none !important;
-      }
-      .navbar-mobile-menu {
-        display: none !important;
-      }
-    }
+    /* Page Loader */
+    .page-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s, visibility 0.5s; }
+    .page-loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-spinner { width: 50px; height: 50px; border: 4px solid var(--gray-200); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
+  
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-spinner"></div>
+  </div>
 
-<!-- Navbar -->
-<div class="w3-top">
-  <div class="navbar-container w3-large" style="display: flex; align-items: center; justify-content: space-between; height: auto; padding: 12px 0; width: 100%; max-width: none; position: relative;">
+  <nav class="navbar solid" id="navbar">
+    <div class="navbar-container">
+      
+      <div class="navbar-left-group">
+        <img src="fig/hdu_logo.png" alt="HDU Logo" class="school-logo" />
+        
+        <div class="nav-divider"></div>
 
-    <!-- Left Side -->
-    <div style="display: flex; align-items: center; padding-left: 4px; white-space: nowrap;">
-      <!-- Desktop Full Layout -->
-      <div class="navbar-desktop-full" style="display: flex; align-items: center;">
-        <img src="fig/hdu_logo.png" alt="HDU" style="height:45px; margin-right:12px; margin-left:4px;">
-        <img src="fig/logo.jpg" alt="Lab Logo" style="height:45px; margin-right:15px;">
-        <div style="line-height:1.3; white-space: nowrap;">
-          <div style="font-size:16px; font-weight:500; color:#333;">网络科学与认知智能实验室</div>
-          <div style="font-size:12px; color:#666;">Network Science & AI Group</div>
-        </div>
-      </div>
-      <!-- Mobile Layout -->
-      <div class="navbar-mobile" style="display: none;">
-        <div style="font-size:20px; font-weight:bold; color:#333; margin-left:4px;">NSAG-Lab</div>
-      </div>
-    </div>
-
-    <!-- Right Side -->
-    <div style="padding-right: 4px; white-space: nowrap;">
-      <!-- Desktop Layout -->
-      <div class="navbar-desktop-menu" style="display: flex; align-items: center;">
-        <a href="index.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px;">Home</a>
-        <a href="members.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px;">Members</a>
-        <a href="publication.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px;">Publications</a>
-        <a href="publication_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 16px; margin-right:4px;">中文</a>
-      </div>
-      <!-- Mobile Layout -->
-      <div class="navbar-mobile-menu" style="display: none; align-items: center;">
-        <a href="publication_zh.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:8px 12px; margin-right:4px;">中文</a>
-        <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hover-light-grey" onclick="toggleMobileMenu()" style="padding:8px 12px; margin-right:4px;">
-          <i class="fa fa-bars"></i>
+        <a href="index.html" class="navbar-brand">
+          <img src="fig/logoz.png" alt="NSCI Logo" class="navbar-logo" />
+          <div class="navbar-brand-text">
+            <div class="navbar-title">Network Science & Cognitive Intelligence</div>
+            <div class="navbar-subtitle">NSCI - HDU</div>
+          </div>
         </a>
       </div>
+      
+      <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="index.html#about">ABOUT</a></li>
+        <li><a href="index.html#news">NEWS</a></li>
+        <li><a href="index.html#research">RESEARCH</a></li>
+        <li><a href="publication.html" class="active">PUBLICATIONS</a></li>
+        <li><a href="members.html">MEMBERS</a></li>
+        <li><a href="publication_zh.html">中文</a></li>
+      </ul>
+
+      <button class="mobile-menu-btn" id="navbarToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <div class="publications-container" style="margin-top:0px; margin-bottom:0px;">
+
+    <div class="publications-list">
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">PR</span>
+          <p class="pub-authors">Chen H, Jiao P, Du M, et al.</p>
+        </div>
+        <h3 class="pub-title">TGFormer: Towards temporal graph transformer with auto-correlation mechanism</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Pattern Recognition, 2026</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">FUNDAMENTAL</span>
+          <p class="pub-authors">Pengfei Jiao, Kaiyan Yu, Qing Bao, Ying Jiang, Xuan Guo, Zhidong Zhao</p>
+        </div>
+        <h3 class="pub-title">Graph contrastive learning with node-level accurate difference</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Fundamental Research, 2025</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">IEEE TNSE</span>
+          <p class="pub-authors">Pengfei Jiao, Weijian Song, Yuling Wang, Wang Zhang, Hongqian Chen, Zhidong Zhao, Jian Wu</p>
+        </div>
+        <h3 class="pub-title">Cascade Popularity Prediction: A Multi-View Learning Approach With Socialized Modeling</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE Transactions on Network Science and Engineering <strong>(IEEE TNSE)</strong>, 2025</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">AAAI</span>
+          <p class="pub-authors">Zehao Liu, Mengzhou Gao, Pengfei Jiao</p>
+        </div>
+        <h3 class="pub-title">GCAD: Anomaly Detection in Multivariate Time Series from the Perspective of Granger Causality</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Thirty-Ninth AAAI Conference on Artificial Intelligence <strong>(AAAI)</strong>, 2025</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">IEEE TWC</span>
+          <p class="pub-authors">Tang H, Zhang J, Zhao Z, et al.</p>
+        </div>
+        <h3 class="pub-title">Joint Optimization based on Two-phase GNN in RIS-and DF-assisted MISO Systems with Fine-grained Rate Demands</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE Transactions on Wireless Communications <strong>(IEEE TWC)</strong>, 2025</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge arxiv">ARXIV</span>
+          <p class="pub-authors">Liu H, Jiao P, Gao M, et al.</p>
+        </div>
+        <h3 class="pub-title">Heterogeneous Temporal Hypergraph Neural Network</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">arXiv preprint arXiv:2506.17312, 2025</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge arxiv">ARXIV</span>
+          <p class="pub-authors">Wang Y, Chen Z, Jiao P, et al.</p>
+        </div>
+        <h3 class="pub-title">HeTa: Relation-wise Heterogeneous Graph Foundation Attack Model</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">arXiv preprint arXiv:2506.07428, 2025</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">AAAI</span>
+          <p class="pub-authors">Ao T, Yu Y, Wang Y, et al.</p>
+        </div>
+        <h3 class="pub-title">LightProf: A lightweight reasoning framework for large language model on knowledge graph</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Proceedings of the AAAI Conference on Artificial Intelligence <strong>(AAAI)</strong>, 2025</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">ICDM</span>
+          <p class="pub-authors">Pengfei Jiao, Xinxun Zhang, Mengzhou Gao, Tianpeng Li, Zhidong Zhao</p>
+        </div>
+        <h3 class="pub-title">Informative Subgraphs Aware Masked Auto-Encoder in Dynamic Graphs</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE International Conference on Data Mining <strong>(ICDM)</strong>, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">IEEE TCE</span>
+          <p class="pub-authors">Zhidong Zhao, Jianing Liu, Nana Huang, Pengfei Jiao, Huaming Wu</p>
+        </div>
+        <h3 class="pub-title">Graph Contrastive Learning for Multi-Behavior Recommender System</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE Transactions on Consumer Electronics <strong>(IEEE TCE)</strong>, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">IEEE TBD</span>
+          <p class="pub-authors">Pengfei Jiao, Peng Yan, Jilin Zhang, Biao Wang, Wang Zhang, Nailiang Zhao</p>
+        </div>
+        <h3 class="pub-title">Combine the Growth of Cascades and Impact of Users for Diffusion Prediction</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE Transactions on Big Data <strong>(IEEE TBD)</strong>, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">INFO SCI</span>
+          <p class="pub-authors">Qing Bao, Ying Jiang, Wang Zhang, Pengfei Jiao, Jing Su</p>
+        </div>
+        <h3 class="pub-title">Graph contrastive learning for source localization in social networks</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Information Sciences, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">IEEE TBD</span>
+          <p class="pub-authors">Liu H, Jiao P, Guo X, et al.</p>
+        </div>
+        <h3 class="pub-title">HGN2T: A Simple but Plug-and-Play Framework Extending HGNNs on Heterogeneous Temporal Graphs</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE Transactions on Big Data <strong>(IEEE TBD)</strong>, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">SUSTAIN</span>
+          <p class="pub-authors">Tian X, Zhang C, Liu H, et al.</p>
+        </div>
+        <h3 class="pub-title">Research on Air Quality in Response to Meteorological Factors Based on the Informer Model</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Sustainability, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">J NJU</span>
+          <p class="pub-authors">P. Jiao, Z. Wu, H. Liu, J. Zhang, J. Wan</p>
+        </div>
+        <h3 class="pub-title">Dynamic graph link prediction based on multi-view contrastive learning</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Journal of Nanjing University (Natural Sciences), 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">WWW</span>
+          <p class="pub-authors">Wang Y, Chen Z, Jiao P, et al.</p>
+        </div>
+        <h3 class="pub-title">Can small language models be good reasoners for sequential recommendation?</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Proceedings of the ACM Web Conference <strong>(WWW)</strong>, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge arxiv">ARXIV</span>
+          <p class="pub-authors">Wang Y, Wang X, Huang X, et al.</p>
+        </div>
+        <h3 class="pub-title">Intent-aware recommendation via disentangled graph contrastive learning</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">arXiv preprint arXiv:2403.03714, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">RecSys</span>
+          <p class="pub-authors">Guo Z, Yu Y, Wang Y, et al.</p>
+        </div>
+        <h3 class="pub-title">Information-controllable graph contrastive learning for recommendation</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">ACM Conference on Recommender Systems <strong>(RecSys)</strong>, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">ECAI</span>
+          <p class="pub-authors">Yang Z, Wang X, Yu Y, et al.</p>
+        </div>
+        <h3 class="pub-title">Hop-based Heterogeneous Graph Transformer</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">ECAI, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">IEEE TNSE</span>
+          <p class="pub-authors">Ye J, Bao Q, Xu M, et al.</p>
+        </div>
+        <h3 class="pub-title">Rd-gcn: a role-based dynamic graph convolutional network for information diffusion prediction</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE Transactions on Network Science and Engineering <strong>(IEEE TNSE)</strong>, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">AAAI</span>
+          <p class="pub-authors">Jiao P, Chen H, Bao Q, et al.</p>
+        </div>
+        <h3 class="pub-title">Enhancing multi-scale diffusion prediction via sequential hypergraphs and adversarial learning</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Proceedings of the AAAI Conference on Artificial Intelligence <strong>(AAAI)</strong>, 2024</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">ECML</span>
+          <p class="pub-authors">Chen H, Jiao P, Tang H, et al.</p>
+        </div>
+        <h3 class="pub-title">Temporal graph representation learning with adaptive augmentation contrastive</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">ECML PKDD, 2023</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">PR</span>
+          <p class="pub-authors">Lu Y, Gao M, Liu H, et al.</p>
+        </div>
+        <h3 class="pub-title">Neighborhood overlap-aware heterogeneous hypergraph neural network for link prediction</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Pattern Recognition, 2023</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">JCRD</span>
+          <p class="pub-authors">P. Jiao, H. Liu, L. Lü, M. Gao, J. Zhang, D. Liu</p>
+        </div>
+        <h3 class="pub-title">Globally enhanced heterogeneous temporal graph neural networks based on contrastive learning</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">Journal of Computer Research and Development, 2023</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">SmartWorld</span>
+          <p class="pub-authors">Wu Z, Tang H, Liu H</p>
+        </div>
+        <h3 class="pub-title">Bayesian Contrastive Representation Learning for Dynamic Graph</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE Smartworld, 2022</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge arxiv">ARXIV</span>
+          <p class="pub-authors">Wang Y, Xu H, Yu Y, et al.</p>
+        </div>
+        <h3 class="pub-title">Ensemble multi-relational graph neural networks</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">arXiv preprint arXiv:2205.12076, 2022</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge journal">IEEE TCYB</span>
+          <p class="pub-authors">Bao Q, Cheung W K, Zhang Y, et al.</p>
+        </div>
+        <h3 class="pub-title">A component-based diffusion model with structural diversity for social networks</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE transactions on cybernetics <strong>(IEEE TCYB)</strong>, 2016</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">IJCAI</span>
+          <p class="pub-authors">Bao Q, Cheung W K, Liu J</p>
+        </div>
+        <h3 class="pub-title">Inferring Motif-Based Diffusion Models for Social Networks</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IJCAI, 2016</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">WI-IAT</span>
+          <p class="pub-authors">Bao Q, Cheung W K, Liu J, et al.</p>
+        </div>
+        <h3 class="pub-title">Inferring latent co-activation patterns for information diffusion</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE/WIC/ACM International Conference on Web Intelligence and Intelligent Agent Technology <strong>(WI-IAT)</strong>, 2015</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-row-meta">
+          <span class="pub-type-badge conference">WI</span>
+          <p class="pub-authors">Bao Q, Cheung W K, Zhang Y</p>
+        </div>
+        <h3 class="pub-title">Incorporating structural diversity of neighbors in a diffusion model for social networks</h3>
+        <div class="pub-venue-row">
+          <div class="pub-venue">IEEE/WIC/ACM International Joint Conferences on Web Intelligence <strong>(WI)</strong>, 2013</div>
+          <a href="#" class="clean-code-btn"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Mobile Menu Dropdown -->
-  <div id="mobileNav" class="w3-bar-block w3-hide" style="margin-top:0;">
-    <a href="index.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:12px 16px;">Home</a>
-    <a href="members.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:12px 16px;">Members</a>
-    <a href="publication.html" class="w3-bar-item w3-button w3-hover-light-grey" style="padding:12px 16px;">Publications</a>
-  </div>
-</div>
+  <footer>
+    <div class="container-custom">
+      <div class="imoon-footer">
+        
+        <div class="footer-left">
+          <h3 class="footer-title">NSCI: Network Science & Cognitive Intelligence</h3>
+          <div class="footer-text">School of Cyberspace Security, Hangzhou Dianzi University</div>
+          <div class="footer-text">Hangzhou 310018, China</div>
+        </div>
 
-<script>
-  function toggleMobileMenu() {
-    var x = document.getElementById("mobileNav");
-    if (x.className.indexOf("w3-show") === -1) {
-      x.className += " w3-show";
-    } else {
-      x.className = x.className.replace(" w3-show", "");
-    }
-  }
+        <div class="footer-right">
+          <h3 class="footer-title">Copyright © 2022-2025</h3>
+          <div class="footer-text">All Rights Reserved.</div>
+        </div>
 
-  // Publications search and filter functionality
-  let currentFilter = 'all';
+      </div>
+    </div>
+  </footer>
 
-  function searchPublications() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const publications = document.querySelectorAll('.publication-item');
-    let visibleCount = 0;
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    publications.forEach(pub => {
-      const title = pub.querySelector('.pub-title').textContent.toLowerCase();
-      const authors = pub.querySelector('.pub-authors').textContent.toLowerCase();
-      const venue = pub.querySelector('.pub-venue').textContent.toLowerCase();
+  <script>
+    AOS.init({ duration: 800, once: true, offset: 100 });
+    
+    // Page Loader Logic
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('pageLoader');
+      setTimeout(() => { loader.classList.add('hidden'); }, 500);
+    });
 
-      const matchesSearch = title.includes(searchTerm) ||
-                           authors.includes(searchTerm) ||
-                           venue.includes(searchTerm);
-      const matchesFilter = currentFilter === 'all' || pub.dataset.type === currentFilter;
+    // Navbar Scroll Logic
+    const navbar = document.getElementById('navbar');
+    
+    // Mobile Menu Logic
+    const toggle = document.getElementById('navbarToggle');
+    const menu = document.getElementById('navbarMenu');
+    const overlay = document.getElementById('mobileOverlay');
+    const menuLinks = menu.querySelectorAll('a'); 
 
-      if (matchesSearch && matchesFilter) {
-        pub.style.display = 'block';
-        visibleCount++;
+    function toggleMenu() {
+      toggle.classList.toggle('active'); 
+      menu.classList.toggle('active');   
+      overlay.classList.toggle('active'); 
+      
+      if (menu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
       } else {
-        pub.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeMenu() {
+      toggle.classList.remove('active');
+      menu.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    menuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1400) {
+        closeMenu();
       }
     });
-
-    updateYearSections();
-    updateStats(visibleCount);
-  }
-
-  function filterByType(type) {
-    currentFilter = type;
-
-    // Update active button
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.classList.remove('active');
-    });
-    event.target.classList.add('active');
-
-    searchPublications();
-  }
-
-  function updateYearSections() {
-    const yearSections = document.querySelectorAll('.year-section');
-
-    yearSections.forEach(section => {
-      const visiblePubs = section.querySelectorAll('.publication-item[style*="block"], .publication-item:not([style*="none"])');
-      const actuallyVisible = Array.from(visiblePubs).filter(pub =>
-        pub.style.display !== 'none'
-      );
-
-      if (actuallyVisible.length > 0) {
-        section.style.display = 'block';
-        // Update year count
-        const yearCount = section.querySelector('.year-count');
-        if (yearCount) {
-          const totalInYear = section.querySelectorAll('.publication-item').length;
-          yearCount.textContent = `(${actuallyVisible.length}/${totalInYear} papers)`;
-        }
-      } else {
-        section.style.display = 'none';
-      }
-    });
-  }
-
-  function updateStats(visibleCount) {
-    const statsInfo = document.getElementById('statsInfo');
-    const totalCount = document.querySelectorAll('.publication-item').length;
-
-    if (currentFilter === 'all' && document.getElementById('searchInput').value === '') {
-      statsInfo.textContent = `Showing all ${totalCount} publications`;
-    } else {
-      const filterText = {
-        'all': 'All',
-        'journal': 'Journal Articles',
-        'conference': 'Conference Papers',
-        'book': 'Book Chapters'
-      };
-      statsInfo.textContent = `Showing ${visibleCount} publications (${filterText[currentFilter]})`;
-    }
-  }
-
-  // Initialize on page load
-  document.addEventListener('DOMContentLoaded', function() {
-    updateStats(document.querySelectorAll('.publication-item').length);
-  });
-</script>
-
-
-
-<!-- Main Content -->
-<div class="publications-container" style="margin-top:100px; margin-bottom:80px;">
-
-  <!-- Page Header -->
-  <div class="page-header">
-    <h1 class="page-title">Publications</h1>
-    <p class="page-subtitle">Research Results of Network Science and Cognitive Intelligence Laboratory</p>
-  </div>
-
-  <!-- Search and Filter Section -->
-  <div class="search-filter-section">
-    <div class="search-container">
-      <div class="search-box">
-        <input type="text" class="search-input" id="searchInput" placeholder="Search for paper titles, authors, or journals..." onkeyup="searchPublications()">
-        <i class="fa fa-search search-icon"></i>
-      </div>
-    </div>
-
-    <div class="filter-buttons">
-      <button class="filter-btn active" onclick="filterByType('all')">All</button>
-      <button class="filter-btn" onclick="filterByType('journal')">Journal Articles</button>
-      <button class="filter-btn" onclick="filterByType('conference')">Conference Papers</button>
-      <button class="filter-btn" onclick="filterByType('book')">Book Chapters</button>
-    </div>
-
-    <div class="stats-info" id="statsInfo">
-      Showing all publications
-    </div>
-  </div>
-
-  <!-- Publications List -->
-  <div class="publications-list" id="publicationsList">
-
-    <!-- 2026 -->
-    <div class="year-section" data-year="2026">
-      <h2 class="year-header">2026 <span class="year-count">(1 paper)</span></h2>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">TGFormer: Towards temporal graph transformer with auto-correlation mechanism</div>
-        <div class="pub-authors">Chen H, Jiao P, Du M, et al.</div>
-        <div class="pub-venue">Pattern Recognition, 2026, 170: 112053</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2026</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2025 -->
-    <div class="year-section" data-year="2025">
-      <h2 class="year-header">2025 <span class="year-count">(7 papers)</span></h2>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Graph contrastive learning with node-level accurate difference</div>
-        <div class="pub-authors">Pengfei Jiao, Kaiyan Yu, Qing Bao, Ying Jiang, Xuan Guo, Zhidong Zhao</div>
-        <div class="pub-venue">Fundamental Research</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2025</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Cascade Popularity Prediction: A Multi-View Learning Approach With Socialized Modeling</div>
-        <div class="pub-authors">Pengfei Jiao, Weijian Song, Yuling Wang, Wang Zhang, Hongqian Chen, Zhidong Zhao, Jian Wu</div>
-        <div class="pub-venue">IEEE Transactions on Network Science and Engineering</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2025</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">GCAD: Anomaly Detection in Multivariate Time Series from the Perspective of Granger Causality</div>
-        <div class="pub-authors">Zehao Liu, Mengzhou Gao, Pengfei Jiao</div>
-        <div class="pub-venue">Thirty-Ninth AAAI Conference on Artificial Intelligence (AAAI-25)</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2025</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Joint Optimization based on Two-phase GNN in RIS-and DF-assisted MISO Systems with Fine-grained Rate Demands</div>
-        <div class="pub-authors">Tang H, Zhang J, Zhao Z, et al.</div>
-        <div class="pub-venue">IEEE Transactions on Wireless Communications, 2025</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2025</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Heterogeneous Temporal Hypergraph Neural Network</div>
-        <div class="pub-authors">Liu H, Jiao P, Gao M, et al.</div>
-        <div class="pub-venue">arXiv preprint arXiv:2506.17312, 2025</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2025</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">HeTa: Relation-wise Heterogeneous Graph Foundation Attack Model</div>
-        <div class="pub-authors">Wang Y, Chen Z, Jiao P, et al.</div>
-        <div class="pub-venue">arXiv preprint arXiv:2506.07428, 2025</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2025</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">LightProf: A lightweight reasoning framework for large language model on knowledge graph</div>
-        <div class="pub-authors">Ao T, Yu Y, Wang Y, et al.</div>
-        <div class="pub-venue">Proceedings of the AAAI Conference on Artificial Intelligence. 2025, 39(22): 23424-23432</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2025</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2024 -->
-    <div class="year-section" data-year="2024">
-      <h2 class="year-header">2024 <span class="year-count">(13 papers)</span></h2>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">Informative Subgraphs Aware Masked Auto-Encoder in Dynamic Graphs</div>
-        <div class="pub-authors">Pengfei Jiao, Xinxun Zhang, Mengzhou Gao, Tianpeng Li, Zhidong Zhao</div>
-        <div class="pub-venue">2024 IEEE International Conference on Data Mining (ICDM)</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Graph Contrastive Learning for Multi-Behavior Recommender System</div>
-        <div class="pub-authors">Zhidong Zhao, Jianing Liu, Nana Huang, Pengfei Jiao, Huaming Wu</div>
-        <div class="pub-venue">IEEE Transactions on Consumer Electronics</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Combine the Growth of Cascades and Impact of Users for Diffusion Prediction</div>
-        <div class="pub-authors">Pengfei Jiao, Peng Yan, Jilin Zhang, Biao Wang, Wang Zhang, Nailiang Zhao</div>
-        <div class="pub-venue">IEEE Transactions on Big Data</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Graph contrastive learning for source localization in social networks</div>
-        <div class="pub-authors">Qing Bao, Ying Jiang, Wang Zhang, Pengfei Jiao, Jing Su</div>
-        <div class="pub-venue">Information Sciences</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">HGN2T: A Simple but Plug-and-Play Framework Extending HGNNs on Heterogeneous Temporal Graphs</div>
-        <div class="pub-authors">Liu H, Jiao P, Guo X, et al.</div>
-        <div class="pub-venue">IEEE Transactions on Big Data, 2024, 10(5): 620-632</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Research on Air Quality in Response to Meteorological Factors Based on the Informer Model</div>
-        <div class="pub-authors">Tian X, Zhang C, Liu H, et al.</div>
-        <div class="pub-venue">Sustainability, 2024, 16(16): 6794</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Dynamic graph link prediction based on multi-view contrastive learning</div>
-        <div class="pub-authors">P. Jiao, Z. Wu, H. Liu, J. Zhang, J. Wan</div>
-        <div class="pub-venue">Journal of Nanjing University (Natural Sciences), Vol.60, No.3, pp.383–395</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">Can small language models be good reasoners for sequential recommendation?</div>
-        <div class="pub-authors">Wang Y, Chen Z, Jiao P, et al.</div>
-        <div class="pub-venue">Proceedings of the ACM Web Conference 2024. 2024: 3876-3887</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Intent-aware recommendation via disentangled graph contrastive learning</div>
-        <div class="pub-authors">Wang Y, Wang X, Huang X, et al.</div>
-        <div class="pub-venue">arXiv preprint arXiv:2403.03714, 2024</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">Information-controllable graph contrastive learning for recommendation</div>
-        <div class="pub-authors">Guo Z, Yu Y, Wang Y, et al.</div>
-        <div class="pub-venue">Proceedings of the 18th ACM Conference on Recommender Systems. 2024: 528-537</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">Hop-based Heterogeneous Graph Transformer</div>
-        <div class="pub-authors">Yang Z, Wang X, Yu Y, et al.</div>
-        <div class="pub-venue">ECAI. 2024</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Rd-gcn: a role-based dynamic graph convolutional network for information diffusion prediction</div>
-        <div class="pub-authors">Ye J, Bao Q, Xu M, et al.</div>
-        <div class="pub-venue">IEEE Transactions on Network Science and Engineering, 2024, 11(5): 4923-4937</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">Enhancing multi-scale diffusion prediction via sequential hypergraphs and adversarial learning</div>
-        <div class="pub-authors">Jiao P, Chen H, Bao Q, et al.</div>
-        <div class="pub-venue">Proceedings of the AAAI Conference on Artificial Intelligence. 2024, 38(8): 8571-8581</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2024</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2023 -->
-    <div class="year-section" data-year="2023">
-      <h2 class="year-header">2023 <span class="year-count">(3 papers)</span></h2>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">Temporal graph representation learning with adaptive augmentation contrastive</div>
-        <div class="pub-authors">Chen H, Jiao P, Tang H, et al.</div>
-        <div class="pub-venue">Joint European conference on machine learning and knowledge discovery in databases. Cham: Springer Nature Switzerland, 2023: 683-699</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2023</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Neighborhood overlap-aware heterogeneous hypergraph neural network for link prediction</div>
-        <div class="pub-authors">Lu Y, Gao M, Liu H, et al.</div>
-        <div class="pub-venue">Pattern Recognition, 2023, 144: 109818</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2023</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Globally enhanced heterogeneous temporal graph neural networks based on contrastive learning</div>
-        <div class="pub-authors">P. Jiao, H. Liu, L. Lü, M. Gao, J. Zhang, D. Liu</div>
-        <div class="pub-venue">Journal of Computer Research and Development, Vol.60, No.8, pp.1808–1821</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2023</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2022 -->
-    <div class="year-section" data-year="2022">
-      <h2 class="year-header">2022 <span class="year-count">(2 papers)</span></h2>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">Bayesian Contrastive Representation Learning for Dynamic Graph</div>
-        <div class="pub-authors">Wu Z, Tang H, Liu H</div>
-        <div class="pub-venue">2022 IEEE Smartworld, Ubiquitous Intelligence & Computing, Scalable Computing & Communications, Digital Twin, Privacy Computing, Metaverse, Autonomous & Trusted Vehicles (SmartWorld/UIC/ScalCom/DigitalTwin/PriComp/Meta). IEEE, 2022: 2134-2141</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2022</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">Ensemble multi-relational graph neural networks</div>
-        <div class="pub-authors">Wang Y, Xu H, Yu Y, et al.</div>
-        <div class="pub-venue">arXiv preprint arXiv:2205.12076, 2022</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2022</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2016 -->
-    <div class="year-section" data-year="2016">
-      <h2 class="year-header">2016 <span class="year-count">(2 papers)</span></h2>
-
-      <div class="publication-item journal" data-type="journal">
-        <div class="pub-type-badge journal">Journal</div>
-        <div class="pub-title">A component-based diffusion model with structural diversity for social networks</div>
-        <div class="pub-authors">Bao Q, Cheung W K, Zhang Y, et al.</div>
-        <div class="pub-venue">IEEE transactions on cybernetics, 2016, 47(4): 1078-1089</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2016</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-book"></i>
-            <span>Journal Article</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">Inferring Motif-Based Diffusion Models for Social Networks</div>
-        <div class="pub-authors">Bao Q, Cheung W K, Liu J</div>
-        <div class="pub-venue">IJCAI. 2016: 3677-3683</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2016</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2015 -->
-    <div class="year-section" data-year="2015">
-      <h2 class="year-header">2015 <span class="year-count">(1 paper)</span></h2>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">Inferring latent co-activation patterns for information diffusion</div>
-        <div class="pub-authors">Bao Q, Cheung W K, Liu J, et al.</div>
-        <div class="pub-venue">2015 IEEE/WIC/ACM International Conference on Web Intelligence and Intelligent Agent Technology (WI-IAT). IEEE, 2015, 1: 485-492</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2015</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2013 -->
-    <div class="year-section" data-year="2013">
-      <h2 class="year-header">2013 <span class="year-count">(1 paper)</span></h2>
-
-      <div class="publication-item conference" data-type="conference">
-        <div class="pub-type-badge conference">Conference</div>
-        <div class="pub-title">Incorporating structural diversity of neighbors in a diffusion model for social networks</div>
-        <div class="pub-authors">Bao Q, Cheung W K, Zhang Y</div>
-        <div class="pub-venue">2013 IEEE/WIC/ACM International Joint Conferences on Web Intelligence (WI) and Intelligent Agent Technologies (IAT). IEEE, 2013, 1: 431-438</div>
-        <div class="pub-meta">
-          <div class="pub-meta-item">
-            <i class="fa fa-calendar"></i>
-            <span>2013</span>
-          </div>
-          <div class="pub-meta-item">
-            <i class="fa fa-users"></i>
-            <span>Conference Paper</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="w3-container w3-footer-custom w3-center">
-  <div class="w3-footer-info">
-    <h4>Network Science & AI Group</h4>
-    <p><i class="fa fa-map-marker w3-margin-right"></i> Hangzhou Dianzi University, Qiantang District, Hangzhou, Zhejiang, China</p>
-    <p><i class="fa fa-envelope w3-margin-right"></i> pjiao@hdu.edu.cn</p>
-  </div>
-  <a href="#" class="w3-button w3-black w3-footer-button">
-    <i class="fa fa-arrow-up w3-margin-right"></i>Back to Top
-  </a>
-  <p class="w3-footer-copyright">© 2024 Network Science & AI Group. All rights reserved.</p>
-</footer>
-
-<script>
-  function myFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-      x.className += " w3-show";
-    } else {
-      x.className = x.className.replace(" w3-show", "");
-    }
-  }
-</script>
-
+  </script>
 </body>
 </html>
